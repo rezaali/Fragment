@@ -1,3 +1,6 @@
 [submodule "blocks/GlslParams"]
 	path = blocks/GlslParams
 	url = https://github.com/rezaali/Cinder-GlslParams.git
+[submodule "blocks/LiveAsset"]
+	path = blocks/LiveAsset
+	url = https://github.com/rezaali/Cinder-LiveAsset.git
