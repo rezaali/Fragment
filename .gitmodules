@@ -1,0 +1,3 @@
+[submodule "blocks/GlslParams"]
+	path = blocks/GlslParams
+	url = https://github.com/rezaali/Cinder-GlslParams.git
