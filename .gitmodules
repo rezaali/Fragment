@@ -4,3 +4,6 @@
 [submodule "blocks/LiveAsset"]
 	path = blocks/LiveAsset
 	url = https://github.com/rezaali/Cinder-LiveAsset.git
+[submodule "blocks/Paths"]
+	path = blocks/Paths
+	url = https://github.com/rezaali/Cinder-Paths.git
