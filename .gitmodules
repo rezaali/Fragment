@@ -10,3 +10,6 @@
 [submodule "blocks/Tiler"]
 	path = blocks/Tiler
 	url = https://github.com/rezaali/Cinder-Tiler.git
+[submodule "blocks/UI"]
+	path = blocks/UI
+	url = https://github.com/rezaali/Cinder-UI.git
