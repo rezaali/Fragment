@@ -7,3 +7,6 @@
 [submodule "blocks/Paths"]
 	path = blocks/Paths
 	url = https://github.com/rezaali/Cinder-Paths.git
+[submodule "blocks/Tiler"]
+	path = blocks/Tiler
+	url = https://github.com/rezaali/Cinder-Tiler.git
