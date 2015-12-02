@@ -6,7 +6,7 @@
          "ID" : 0,
          "NAME" : "PX",
          "TYPE" : "Dialer",
-         "VALUE" : 0
+         "VALUE" : 20
       },
       {
          "ID" : 1,
@@ -48,13 +48,13 @@
          "ID" : 11,
          "NAME" : "CX",
          "TYPE" : "Dialer",
-         "VALUE" : 465
+         "VALUE" : 250
       },
       {
          "ID" : 12,
          "NAME" : "CY",
          "TYPE" : "Dialer",
-         "VALUE" : 279
+         "VALUE" : 77
       },
       {
          "ID" : 13,
@@ -76,7 +76,7 @@
       }
    ],
    "TYPE" : "WindowCanvas",
-   "VALID" : false,
-   "XPOS" : 503,
-   "YPOS" : 212
+   "VALID" : true,
+   "XPOS" : 530,
+   "YPOS" : 45
 }

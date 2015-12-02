@@ -85,11 +85,12 @@ public:
     fs::path mSequenceTilerPath;
     qtime::MovieWriterRef mMovieExporter;
     int mMovieExporterTotalFrames = 0;
+    int mMovieExporterCurrentFrame = 0;
+    float mMovieExporterCurrentTime = 0;
     float mMovieExporterProgress = 0.0f;
     bool mMovieExporterRecording = false;
     bool mMovieExporterSaveMovie = true;
     bool mMovieExporterSaveFrames = false;
-    int mMovieExporterStartFrame = 0;
     void setupRecorder();
     void recordOutput();
     
@@ -126,10 +127,17 @@ public:
     WindowCanvasRef setupUI( WindowCanvasRef ui );
     WindowCanvasRef setupShaderUI( WindowCanvasRef ui );
     WindowCanvasRef setupExporterUI( WindowCanvasRef ui );
+    WindowCanvasRef setupConsoleUI( WindowCanvasRef ui );
     
     void loadGlsl( const fs::path &path );
     void saveGlsl( const fs::path &path );
     map<string, fs::path> mGlslPathMap;
+    
+    //CONSOLE
+    string mCompiledMessageError;
+    bool mCompiledGlsl = false;
+    bool mCompiledGlslLast = true;
+    LabelRef mCompiledLabelRef = nullptr;
     
     //CAMERA
     float mDoubleClickThreshold = 0.2;
@@ -285,6 +293,13 @@ void ShaderToyApp::updateOutput()
         mSaveImage = false;
     }
     
+
+
+    if( mMovieExporterCurrentFrame >= mMovieExporterTotalFrames ) {
+        mMovieExporterCurrentFrame = 0;
+    }
+    mMovieExporterCurrentFrame++;
+    mMovieExporterCurrentTime = float( mMovieExporterCurrentFrame ) / float( mMovieExporterTotalFrames );
 }
 
 void ShaderToyApp::drawOutput()
@@ -295,7 +310,9 @@ void ShaderToyApp::drawOutput()
     auto t = boost::posix_time::second_clock::local_time();
     auto date = t.date();
     mGlslRef->uniform( "iResolution", vec3( size.x, size.y, 0.0 ) );
+    mGlslRef->uniform( "iAspect", mOutputWindowRef->getAspectRatio() );
     mGlslRef->uniform( "iGlobalTime", float( getElapsedSeconds() ) );
+    mGlslRef->uniform( "iAnimationTime", mMovieExporterCurrentTime );
     mGlslRef->uniform( "iMouse", vec4( mMouse.x, size.y - mMouse.y, mMouseClick.x, size.y - mMouseClick.y ) );
     mGlslRef->uniform( "iDate", vec4( date.year(), date.month(), date.day_number(), t.time_of_day().seconds() ) );
     mGlslRef->uniform( "iPalettes", 0 );
@@ -325,6 +342,7 @@ void ShaderToyApp::keyDownOutput( KeyEvent event )
             case KeyEvent::KEY_a: { spawnUI( "shadertoy" ); } break;
             case KeyEvent::KEY_p: { spawnUI( "params" ); } break;
             case KeyEvent::KEY_e: { spawnUI( "exporter" ); } break;
+            case KeyEvent::KEY_c: { spawnUI( "console" ); } break;
             case KeyEvent::KEY_f: {
                 mOutputWindowRef->setFullScreen( !mOutputWindowRef->isFullScreen() );
             }
@@ -352,6 +370,7 @@ void ShaderToyApp::setupBatch()
 
 void ShaderToyApp::drawBatch()
 {
+    gl::ScopedColor scpClr( ColorA( 1.0, 0.0, 0.0, 1.0 ) ); 
     mBatchRef->draw();
 }
 
@@ -364,6 +383,7 @@ void ShaderToyApp::setupUIs()
     addUI( setupUI( createUI( "shadertoy" ) ) );
     addUI( setupShaderUI( createUI( "params") ) );
     addUI( setupExporterUI( createUI( "exporter" ) ) );
+    addUI( setupConsoleUI( createUI( "console" ) ) );
 }
 
 WindowCanvasRef ShaderToyApp::setupUI( WindowCanvasRef ui )
@@ -424,6 +444,7 @@ WindowCanvasRef ShaderToyApp::setupUI( WindowCanvasRef ui )
 WindowCanvasRef ShaderToyApp::setupShaderUI( WindowCanvasRef ui )
 {
     ui->addColorPicker( "BACKGROUND COLOR", &mBgColor );
+    ui->addSpacer();
     addShaderParamsUI( ui, mGlsParams, mGlslRef );
     return ui;
 }
@@ -440,6 +461,7 @@ WindowCanvasRef ShaderToyApp::setupExporterUI( WindowCanvasRef ui )
     ui->addSpacer();
     ui->addButton( "RENDER", false )->setCallback( [ this ] ( bool value ) {
         if( value && ( mMovieExporterSaveMovie || mMovieExporterSaveFrames ) ) {
+            mMovieExporterCurrentFrame = -1;
             mMovieExporterRecording = true;
             setupRecorder();
         }
@@ -449,7 +471,53 @@ WindowCanvasRef ShaderToyApp::setupExporterUI( WindowCanvasRef ui )
     ui->addToggle( "PNG", &mMovieExporterSaveFrames );
     ui->addDialeri( "FRAMES", &mMovieExporterTotalFrames, 0, 99999, Dialeri::Format().label( false ) );
     down( ui );
+    ui->setSliderHeight( 8 );
     ui->addSliderf( "PROGRESS", &mMovieExporterProgress, 0.0, 1.0, Sliderf::Format().label( false ) );
+    ui->addSliderf( "ANIMATION", &mMovieExporterCurrentTime, 0.0, 1.0, Sliderf::Format().label( false ) );
+    return ui;
+}
+
+WindowCanvasRef ShaderToyApp::setupConsoleUI( WindowCanvasRef ui )
+{
+    string status = mCompiledGlsl == true ? "SUCCESS" : "ERROR";
+    mCompiledLabelRef = ui->addLabel( "STATUS: " + status, FontSize::SMALL );
+    if( mCompiledGlsl ) {
+        mCompiledLabelRef->setColorFill( ColorA( 0.0, 1.0, 0.0, 1.0 ) );
+    } else {
+        mCompiledLabelRef->setColorFill( ColorA( 1.0, 0.0, 0.0, 1.0 ) );
+    }
+    float w = mCompiledLabelRef->getStringWidth( "_" ) + mCompiledLabelRef->getSpacing();
+    
+    auto addTextArea = [ this, &w, &ui ] (const string& message ) {
+        float totalWidth = message.length() * w;
+        float uiw = ui->getSize().x - ui->getPadding().mRight - ui->getPadding().mLeft;
+        int totalPerLine = floor( uiw / w );
+        int total = ceil( totalWidth / uiw );
+        for( int i = 0; i < total; i++ ) {
+            int offset = i * totalPerLine;
+            int length = totalPerLine;
+            if( i + 1 == total ) {
+                length = std::min( int( message.length() - offset ), int( totalPerLine ) );
+            }
+            ui->addLabel( message.substr( offset, length ), FontSize::SMALL );
+        }
+    };
+    
+    string message = mCompiledMessageError;
+    vector<string> errors = split( mCompiledMessageError, '\n' );
+    auto keys = { "FRAGMENT: ", "ERROR: ", "Use of ", "identifier " };
+    for( auto& it : errors ) {
+        string msg = it;
+        for( auto k : keys ) {
+            string key = k;
+            size_t foundKey = msg.find( key );
+            if( foundKey != string::npos ) {
+                msg = msg.replace( foundKey, key.length(), "" );
+            }
+        }
+        ui->addSpacer();
+        addTextArea( msg );
+    }
     return ui;
 }
 
@@ -548,31 +616,9 @@ void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParam
      uniform bool state0;    //button:0                  -> button
      uniform bool state1;    //toggle:1                  -> toggle
      */
-    
-//    multimap<string, string> uiTypeMap  = {
-//        { "int" , "slider" },
-//        { "int" , "dialer" },
-//        
-//        { "float" , "ui" },
-//        { "float" , "slider" },
-//        { "float" , "dialer" },
-//        
-//        { "vec2" , "pad" },
-//        { "vec2" , "range" },
-//        { "vec2" , "ui" },
-//        
-//        { "vec3" , "ui" },
-//        { "vec4" , "ui" },
-//        { "vec4" , "color" },
-//        
-//        { "bool" , "button" },
-//        { "bool" , "toggle" }
-//    };
 
     MultiSliderRef ref = nullptr;
     vector<MultiSlider::Data> data;
-    
-    
     
     auto& order = glslParams.getParamOrder();
     auto& types = glslParams.getTypeMap();
@@ -600,7 +646,6 @@ void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParam
         string name = it.second;
         string type = types.at( name ).first;       // float
         string uitype = types.at( name ).second;    // slider
-        cout << "INDEX: " << it.first << " " << it.second << endl;
         if( type == "bool" ) {
             bool *ptr = &bp[ name ];
             if( uitype == "button" ) { ui->addButton( name, ptr ); }
@@ -626,7 +671,7 @@ void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParam
             float low = v2r[ name ].first;
             float high = v2r[ name ].second;
             if( uitype == "range" ) { ui->addRangef( name, &ptr->x, &ptr->y, low, high ); }
-            else if( uitype == "pad" ) { ui->addXYPad( name, ptr, XYPad::Format().min( vec2( low ) ).max( vec2( high ) ) ); }
+            else if( uitype == "pad" ) { ui->addXYPad( name, ptr, XYPad::Format().min( vec2( low, high ) ).max( vec2( high, low ) ) ); }
             else if( uitype == "ui" ) {
                 ui->addMultiSlider( name, {
                     MultiSlider::Data( name + "-X", &ptr->x, low, high ),
@@ -741,11 +786,11 @@ void ShaderToyApp::saveImage( const fs::path& path, const string& filename, cons
     if( createDirectory( path ) ) {
         fs::path low = path;
         low += fs::path( filename + "." + extension );
-        writeImage( low, screen->getSurface() );
+        writeImage( low, screen->getSurface(), ImageTarget::Options().quality( 1.0 ) );
         
         fs::path high = path;
         high += fs::path( filename + " high." + extension );
-        writeImage( high, render->getSurface() );
+        writeImage( high, render->getSurface(), ImageTarget::Options().quality( 1.0 ) );
     }
 }
 
@@ -755,12 +800,11 @@ void ShaderToyApp::saveImage( const fs::path& path, const string& filename, cons
 
 void ShaderToyApp::setupRecorder()
 {
-    string fileName = "8 " + toString( boost::posix_time::second_clock::universal_time() );
+    string fileName = "ShaderToy " + toString( boost::posix_time::second_clock::universal_time() );
     fs::path dir = getVideoPath( fileName );
     save( dir );
     fs::path path = dir;
     path += ".mov";
-    mMovieExporterStartFrame = getElapsedFrames();
     
     if( mMovieExporterSaveMovie ) {
         auto format = qtime::MovieWriter::Format().codec( qtime::MovieWriter::JPEG ).fileType( qtime::MovieWriter::QUICK_TIME_MOVIE )
@@ -782,7 +826,7 @@ void ShaderToyApp::setupRecorder()
 void ShaderToyApp::recordOutput()
 {
     if( mMovieExporterRecording ) {
-        int frameNumber = ( getElapsedFrames() - mMovieExporterStartFrame );
+        int frameNumber = mMovieExporterCurrentFrame;
         if( frameNumber < mMovieExporterTotalFrames ) {
             mMovieExporterProgress = float( frameNumber ) / float( mMovieExporterTotalFrames );
             if( mMovieExporterSaveMovie ) {
@@ -794,7 +838,7 @@ void ShaderToyApp::recordOutput()
                 path += toString( frameNumber );
                 path += ".";
                 path += "png";
-                writeImage( path, mSequenceTiler->getSurface() );
+                writeImage( path, mSequenceTiler->getSurface(), ImageTarget::Options().quality( 1.0 ) );
             }
         } else {
             if( mMovieExporterSaveMovie ) {
@@ -855,14 +899,25 @@ void ShaderToyApp::loadGlsl( const fs::path& path )
 
 void ShaderToyApp::setupGlsl()
 {
+    auto consoleUI = [ this ] {
+        string name = "console";
+        auto ui = mUIMap.find( name );
+        if( ui != mUIMap.end() ) {
+            saveUI( getWorkingPath(), ui->second->getName() );
+            killUI( ui->second );
+            addUI( setupConsoleUI( createUI( name ) ) );
+            loadUI( getWorkingPath(), name );
+        }
+    };
+    
     mGlslPathMap[ "shader.vert" ] = getShadersPath( "shader.vert" );
     mGlslPathMap[ "shader.frag" ] = getShadersPath( "shader.frag" );
     auto vertShaderPath = mGlslPathMap[ "shader.vert" ];
     auto fragShaderPath = mGlslPathMap[ "shader.frag" ];
     try {
-        mGlslLiveRef = LiveAssetManager::load( vertShaderPath, fragShaderPath, [ this, vertShaderPath, fragShaderPath ] ( DataSourceRef vertDataSource, DataSourceRef fragDataSource) {
+        mGlslLiveRef = LiveAssetManager::load( vertShaderPath, fragShaderPath, [ this, vertShaderPath, fragShaderPath, consoleUI ] ( DataSourceRef vertDataSource, DataSourceRef fragDataSource ) {
             try {
-                cout << "TIME: " << getElapsedSeconds() << endl;
+                mCompiledGlsl = true;
                 gl::ShaderPreprocessor pp;
                 pp.addSearchDirectory( getShadersPath( "Common" ) );
                 vector<string> sources = { pp.parse( vertShaderPath ), pp.parse( fragShaderPath ) };
@@ -872,25 +927,30 @@ void ShaderToyApp::setupGlsl()
                 if( ui != mUIMap.end() ) {
                     saveUI( getWorkingPath(), ui->second->getName() );
                     killUI( ui->second );
-                    cout << "CALLING PARSE: " << endl;
                     mGlsParams.parseUniforms( sources );
                     addUI( setupShaderUI( createUI( name ) ) );
                     loadUI( getWorkingPath(), name );
                 } else {
-                    cout << "CALLING PARSE ELSE: " << endl;
                     mGlsParams.parseUniforms( sources );
                 }
                 
                 mGlslRef = gl::GlslProg::create( sources[ 0 ], sources[ 1 ] );
                 mGlsParams.applyUniforms( mGlslRef );
-                if( mBatchRef ) {
-                    mBatchRef->replaceGlslProg( mGlslRef );
-                }
+                mSetupBatch = true;
+                mCompiledMessageError = "";
+                consoleUI();
             } catch( Exception &exc ) {
+                mGlslRef = gl::getStockShader( gl::ShaderDef().color() );
+                mCompiledGlsl = false;
+                mCompiledMessageError = exc.what();
                 cout << "GLSL is wrong: " << exc.what() << endl;
+                consoleUI();
             }
         });
     } catch( Exception &exc ) {
+        mGlslRef = gl::getStockShader( gl::ShaderDef().color() );
+        mCompiledGlsl = false;
+        mCompiledMessageError = exc.what();
         cout << "GLSL Load Error: " << exc.what() << endl;
     }
 }

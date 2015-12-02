@@ -12,14 +12,20 @@
          "TYPE" : "ColorPicker"
       },
       {
-         "ID" : 1,
-         "NAME" : "blue",
+         "ID" : 2,
+         "NAME" : "freq",
          "TYPE" : "Slider",
-         "VALUE" : 1
+         "VALUE" : 3.7647058963775635
+      },
+      {
+         "ID" : 3,
+         "NAME" : "edge",
+         "TYPE" : "Slider",
+         "VALUE" : 64
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 503,
-   "YPOS" : 45
+   "XPOS" : 527,
+   "YPOS" : 286
 }
