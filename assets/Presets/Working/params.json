@@ -1,0 +1,25 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 1,
+         "NAME" : "blue",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 503,
+   "YPOS" : 45
+}
