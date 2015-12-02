@@ -25,7 +25,7 @@
       }
    ],
    "TYPE" : "WindowCanvas",
-   "VALID" : false,
+   "VALID" : true,
    "XPOS" : 527,
    "YPOS" : 286
 }
