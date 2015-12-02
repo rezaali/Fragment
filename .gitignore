@@ -49,7 +49,7 @@ DerivedData
 Pods
 
 assets/Models
-assets/Video/*.mov
-assets/Renders/*.png
-assets/Models/*.stl
+assets/Video/*
+assets/Renders/*
+assets/Models/*
 *.dropbox
