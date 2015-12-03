@@ -1,0 +1,56 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.71285754442214966,
+         "GREEN" : 0.71285754442214966,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.71285754442214966,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ALPHA" : 1,
+         "BLUE" : 1,
+         "GREEN" : 1,
+         "ID" : 2,
+         "NAME" : "sphereColor",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 3,
+         "NAME" : "pos",
+         "TYPE" : "MultiSlider",
+         "pos-X" : 0,
+         "pos-Y" : 0.9803926944732666,
+         "pos-Z" : 0
+      },
+      {
+         "ID" : 4,
+         "NAME" : "light",
+         "TYPE" : "MultiSlider",
+         "light-X" : 2.0588231086730957,
+         "light-Y" : 1.9607841968536377,
+         "light-Z" : 0.9803926944732666
+      },
+      {
+         "ID" : 5,
+         "NAME" : "radius",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 6,
+         "NAME" : "shadowScale",
+         "TYPE" : "Slider",
+         "VALUE" : 2.029411792755127
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 500,
+   "YPOS" : 335
+}
