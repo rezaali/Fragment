@@ -116,6 +116,8 @@ public:
     WindowCanvasRef createUI( const std::string& name );
     void closeUI( const string& name );
     void spawnUI( const string& name );
+    void closeUIs();
+    void spawnUIs();
     
     WindowCanvasRef addUI( WindowCanvasRef ui );
     void addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams, gl::GlslProgRef& glslProgRef );
@@ -204,7 +206,7 @@ void ShaderToyApp::setup()
     {
         Timer mTime;
         mTime.start();
-        load( getWorkingPath() );
+        loadUIs( getWorkingPath() );
         mTime.stop();
         cout << "load: " << mTime.getSeconds() << endl;
     }
@@ -233,10 +235,8 @@ void ShaderToyApp::save( const fs::path& path )
 void ShaderToyApp::load( const fs::path& path )
 {
     loadUIs( path );
-    if( !firstTime ) {
-        loadGlsl( path );
-        firstTime = false; 
-    }
+    loadGlsl( path );
+    spawnUIs();
 }
 
 //------------------------------------------------------------------------------
@@ -293,8 +293,6 @@ void ShaderToyApp::updateOutput()
         mSaveImage = false;
     }
     
-
-
     if( mMovieExporterCurrentFrame >= mMovieExporterTotalFrames ) {
         mMovieExporterCurrentFrame = 0;
     }
@@ -309,6 +307,7 @@ void ShaderToyApp::drawOutput()
     gl::setMatricesWindow( size );
     auto t = boost::posix_time::second_clock::local_time();
     auto date = t.date();
+    mGlslRef->uniform( "iBackgroundColor", mBgColor );
     mGlslRef->uniform( "iResolution", vec3( size.x, size.y, 0.0 ) );
     mGlslRef->uniform( "iAspect", mOutputWindowRef->getAspectRatio() );
     mGlslRef->uniform( "iGlobalTime", float( getElapsedSeconds() ) );
@@ -538,6 +537,20 @@ void ShaderToyApp::spawnUI( const string& name )
     mUIMap[ name ]->spawn();
 }
 
+void ShaderToyApp::closeUIs()
+{
+    for( auto& it : mUIMap ) {
+        it.second->close();
+    }
+}
+
+void ShaderToyApp::spawnUIs()
+{
+    for( auto& it : mUIMap ) {
+        it.second->spawn();
+    }
+}
+
 void ShaderToyApp::loadUI( const fs::path &path, const string &uiName )
 {
     auto it = mUIMap.find( uiName );
@@ -662,7 +675,7 @@ void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParam
             float* ptr = &fp[ name ];
             float low = fr[ name ].first;
             float high = fr[ name ].second;
-            if( uitype == "slider" ) { ui->addSliderf( name, ptr, low, high ); }
+            if( uitype == "slider" ) { ui->addSliderf( name, &fp.at( name ), low, high ); }
             else if( uitype == "dialer" ) { ui->addDialerf( name, ptr, low, high ); }
             else if( uitype == "ui" ) { data.emplace_back( MultiSlider::Data( name, ptr, low, high ) ); }
         }
@@ -935,7 +948,6 @@ void ShaderToyApp::setupGlsl()
                 }
                 
                 mGlslRef = gl::GlslProg::create( sources[ 0 ], sources[ 1 ] );
-                mGlsParams.applyUniforms( mGlslRef );
                 mSetupBatch = true;
                 mCompiledMessageError = "";
                 consoleUI();

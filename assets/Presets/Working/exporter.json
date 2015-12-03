@@ -24,7 +24,7 @@
          "ID" : 7,
          "NAME" : "FRAMES",
          "TYPE" : "Dialer",
-         "VALUE" : 59
+         "VALUE" : 180
       },
       {
          "ID" : 8,
@@ -36,11 +36,11 @@
          "ID" : 9,
          "NAME" : "ANIMATION",
          "TYPE" : "Slider",
-         "VALUE" : 0.4237288236618042
+         "VALUE" : 0.3888888955116272
       }
    ],
    "TYPE" : "WindowCanvas",
-   "VALID" : false,
-   "XPOS" : 530,
-   "YPOS" : 175
+   "VALID" : true,
+   "XPOS" : 500,
+   "YPOS" : 110
 }

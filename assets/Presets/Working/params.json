@@ -4,28 +4,28 @@
    "SUBVIEWS" : [
       {
          "ALPHA" : 1,
-         "BLUE" : 0,
-         "GREEN" : 0,
+         "BLUE" : 0.71285754442214966,
+         "GREEN" : 0.71285754442214966,
          "ID" : 0,
          "NAME" : "BACKGROUND COLOR",
-         "RED" : 0,
+         "RED" : 0.71285754442214966,
          "TYPE" : "ColorPicker"
       },
       {
-         "ID" : 2,
-         "NAME" : "freq",
-         "TYPE" : "Slider",
-         "VALUE" : 3.7647058963775635
-      },
-      {
          "ID" : 3,
-         "NAME" : "edge",
-         "TYPE" : "Slider",
-         "VALUE" : 64
+         "NAME" : "UNIFORMS",
+         "TYPE" : "MultiSlider",
+         "antialias" : 0.010294117964804173,
+         "blue" : 1,
+         "border" : 1,
+         "borderEnd" : 0.4583333432674408,
+         "borderStart" : 0.43872550129890442,
+         "shadowPower" : 0.12254901975393295,
+         "shadowWidth" : 0.022058824077248573
       }
    ],
    "TYPE" : "WindowCanvas",
-   "VALID" : false,
-   "XPOS" : 527,
-   "YPOS" : 286
+   "VALID" : true,
+   "XPOS" : 500,
+   "YPOS" : 335
 }
