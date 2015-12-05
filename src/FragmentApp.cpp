@@ -1,3 +1,4 @@
+#include "Resources.h"
 //CINDER
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
@@ -18,6 +19,11 @@
 #include "GlslParams.h"
 #include "Paths.h"
 
+/*
+To Do List: 
+ Created Example Directory
+*/
+
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -28,7 +34,7 @@ using namespace reza::ui;
 using namespace reza::tiler;
 using namespace reza::paths;
 
-class ShaderToyApp : public App {
+class FragmentApp : public App {
 public:
     //PREPARE SETTINGS
     static void prepareSettings( Settings *settings );
@@ -129,6 +135,7 @@ public:
     WindowCanvasRef setupUI( WindowCanvasRef ui );
     WindowCanvasRef setupShaderUI( WindowCanvasRef ui );
     WindowCanvasRef setupExporterUI( WindowCanvasRef ui );
+    WindowCanvasRef setupExamplesUI( WindowCanvasRef ui );
     WindowCanvasRef setupConsoleUI( WindowCanvasRef ui );
     
     void loadGlsl( const fs::path &path );
@@ -155,7 +162,7 @@ public:
 #pragma mark - PREPARE SETTINGS
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::prepareSettings( App::Settings *settings )
+void FragmentApp::prepareSettings( App::Settings *settings )
 {
     settings->setWindowSize( 1280, 720 );
     settings->setFrameRate( 60.0f );
@@ -166,12 +173,14 @@ void ShaderToyApp::prepareSettings( App::Settings *settings )
 #pragma mark - SETUP
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setup()
+void FragmentApp::setup()
 {
     {
         Timer mTime;
         mTime.start();
+        createDirectory( getPath( "Examples" ) );
         createAssetDirectories();
+        
         mTime.stop();
         cout << "createAssetDirectories: " << mTime.getSeconds() << endl;
     }
@@ -216,7 +225,7 @@ void ShaderToyApp::setup()
 #pragma mark - CLEANUP
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::cleanup()
+void FragmentApp::cleanup()
 {
     save( getWorkingPath() );
 }
@@ -225,17 +234,17 @@ void ShaderToyApp::cleanup()
 #pragma mark - FILESYSTEM
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::save( const fs::path& path )
+void FragmentApp::save( const fs::path& path )
 {
     createDirectory( path );
     saveGlsl( path );
     saveUIs( path );
 }
 
-void ShaderToyApp::load( const fs::path& path )
+void FragmentApp::load( const fs::path& path )
 {
-    loadUIs( path );
     loadGlsl( path );
+    loadUIs( path );
     spawnUIs();
 }
 
@@ -243,7 +252,7 @@ void ShaderToyApp::load( const fs::path& path )
 #pragma mark - OUTPUT
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setupOutput()
+void FragmentApp::setupOutput()
 {
     mOutputWindowRef = getWindow();
     mOutputWindowRef->getSignalClose().connect( [ this ] { quit(); } );
@@ -279,7 +288,7 @@ void ShaderToyApp::setupOutput()
     } );
 }
 
-void ShaderToyApp::updateOutput()
+void FragmentApp::updateOutput()
 {
     mOutputWindowRef->setTitle( to_string( (int) getAverageFps() ) + " FPS" );
     
@@ -300,7 +309,7 @@ void ShaderToyApp::updateOutput()
     mMovieExporterCurrentTime = float( mMovieExporterCurrentFrame ) / float( mMovieExporterTotalFrames );
 }
 
-void ShaderToyApp::drawOutput()
+void FragmentApp::drawOutput()
 {
     gl::clear( mBgColor );
     vec2 size = mOutputWindowRef->getSize();
@@ -320,13 +329,13 @@ void ShaderToyApp::drawOutput()
     _drawOutput();
 }
 
-void ShaderToyApp::_drawOutput()
+void FragmentApp::_drawOutput()
 {
     gl::ScopedBlendAlpha scpAlp;
     drawBatch();
 }
 
-void ShaderToyApp::_drawOutput( const vec2 &ul, const vec2 &ur, const vec2 &lr, const vec2 &ll )
+void FragmentApp::_drawOutput( const vec2 &ul, const vec2 &ur, const vec2 &lr, const vec2 &ll )
 {
     gl::ScopedBlendAlpha scpAlp;
     vec2 size = mOutputWindowRef->getSize();
@@ -334,14 +343,15 @@ void ShaderToyApp::_drawOutput( const vec2 &ul, const vec2 &ur, const vec2 &lr, 
     batch->draw();
 }
 
-void ShaderToyApp::keyDownOutput( KeyEvent event )
+void FragmentApp::keyDownOutput( KeyEvent event )
 {
     if( event.isMetaDown() ) {
         switch ( event.getCode() ) {
-            case KeyEvent::KEY_a: { spawnUI( "shadertoy" ); } break;
+            case KeyEvent::KEY_a: { spawnUI( "fragment" ); } break;
             case KeyEvent::KEY_p: { spawnUI( "params" ); } break;
-            case KeyEvent::KEY_e: { spawnUI( "exporter" ); } break;
+            case KeyEvent::KEY_r: { spawnUI( "exporter" ); } break;
             case KeyEvent::KEY_c: { spawnUI( "console" ); } break;
+            case KeyEvent::KEY_e: { spawnUI( "examples" ); } break;
             case KeyEvent::KEY_f: {
                 mOutputWindowRef->setFullScreen( !mOutputWindowRef->isFullScreen() );
             }
@@ -354,7 +364,7 @@ void ShaderToyApp::keyDownOutput( KeyEvent event )
 #pragma mark - BATCH
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setupBatch()
+void FragmentApp::setupBatch()
 {
     vec2 size = mOutputWindowRef->getSize();
     vector<vec2> texcoords = { vec2( 0.0, 1.0 ), vec2( 1.0, 1.0 ), vec2( 1.0, 0.0 ), vec2( 0.0, 0.0 ) };
@@ -367,7 +377,7 @@ void ShaderToyApp::setupBatch()
     mBatchRef = gl::Batch::create( geo, mGlslRef );
 }
 
-void ShaderToyApp::drawBatch()
+void FragmentApp::drawBatch()
 {
     gl::ScopedColor scpClr( ColorA( 1.0, 0.0, 0.0, 1.0 ) ); 
     mBatchRef->draw();
@@ -377,15 +387,16 @@ void ShaderToyApp::drawBatch()
 #pragma mark - UI
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setupUIs()
+void FragmentApp::setupUIs()
 {
-    addUI( setupUI( createUI( "shadertoy" ) ) );
+    addUI( setupUI( createUI( "fragment" ) ) );
     addUI( setupShaderUI( createUI( "params") ) );
     addUI( setupExporterUI( createUI( "exporter" ) ) );
+    addUI( setupExamplesUI( createUI( "examples" ) ) );
     addUI( setupConsoleUI( createUI( "console" ) ) );
 }
 
-WindowCanvasRef ShaderToyApp::setupUI( WindowCanvasRef ui )
+WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
 {
     auto mvCb = [ this ] ( int value ) { mOutputWindowRef->setPos( mOutputWindowOrigin ); };
     auto szCb = [ this ] ( int value ) { mOutputWindowRef->setSize( mOutputWindowSize ); };
@@ -406,8 +417,10 @@ WindowCanvasRef ShaderToyApp::setupUI( WindowCanvasRef ui )
             fs::path pth = getSaveFilePath( getPresetsPath() );
             string folderName = pth.filename().string();
             if( folderName.length() ) {
-                save( pth );
-                save( getWorkingPath() );
+                if( createDirectory( pth ) ) {
+                    save( pth );
+                    save( getWorkingPath() );
+                }
             }
         }
     } )->bindToKey( KeyEvent::KEY_s, KeyEvent::META_DOWN );
@@ -440,7 +453,7 @@ WindowCanvasRef ShaderToyApp::setupUI( WindowCanvasRef ui )
     return ui;
 }
 
-WindowCanvasRef ShaderToyApp::setupShaderUI( WindowCanvasRef ui )
+WindowCanvasRef FragmentApp::setupShaderUI( WindowCanvasRef ui )
 {
     ui->addColorPicker( "BACKGROUND COLOR", &mBgColor );
     ui->addSpacer();
@@ -448,7 +461,7 @@ WindowCanvasRef ShaderToyApp::setupShaderUI( WindowCanvasRef ui )
     return ui;
 }
 
-WindowCanvasRef ShaderToyApp::setupExporterUI( WindowCanvasRef ui )
+WindowCanvasRef FragmentApp::setupExporterUI( WindowCanvasRef ui )
 {
     ui->addButton( "SAVE IMAGE", false )->setCallback( [ this ] ( bool value ) { if( value ) { saveImage(); } } )->bindToKey( KeyEvent::KEY_r, KeyEvent::META_DOWN );
     right( ui );
@@ -476,7 +489,40 @@ WindowCanvasRef ShaderToyApp::setupExporterUI( WindowCanvasRef ui )
     return ui;
 }
 
-WindowCanvasRef ShaderToyApp::setupConsoleUI( WindowCanvasRef ui )
+WindowCanvasRef FragmentApp::setupExamplesUI( WindowCanvasRef ui )
+{
+    ui->setTriggerSubViews( false );
+    ui->setLoadSubViews( false );
+    ui->addSpacer();
+    
+    fs::path examplesPath = getPath( "Examples/" );
+    vector<string> examples;
+    
+    fs::directory_iterator it( examplesPath ), eit;
+    for(; it != eit; ++it ) {
+        if( fs::is_directory( it->path() ) ) {
+            string path = it->path().native();
+            cout << path << endl;
+            size_t lastSlash = path.rfind( getPathSeparator(), path.length() );
+            if( lastSlash == string::npos ) {
+                examples.push_back( path );
+            } else {
+                examples.push_back( path.substr( lastSlash + 1, string::npos ) );
+            }
+        }
+    }
+
+    ui->addRadio( "Examples", examples )
+    ->setCallback( [ this ] ( string name, bool value ) {
+        if( value ) {
+            load( getPath( "Examples/" + name ) );
+        }
+    });
+
+    return ui;
+}
+
+WindowCanvasRef FragmentApp::setupConsoleUI( WindowCanvasRef ui )
 {
     string status = mCompiledGlsl == true ? "SUCCESS" : "ERROR";
     mCompiledLabelRef = ui->addLabel( "STATUS: " + status, FontSize::SMALL );
@@ -520,38 +566,38 @@ WindowCanvasRef ShaderToyApp::setupConsoleUI( WindowCanvasRef ui )
     return ui;
 }
 
-WindowCanvasRef ShaderToyApp::createUI( const string& name )
+WindowCanvasRef FragmentApp::createUI( const string& name )
 {
     WindowCanvasRef ui = WindowCanvas::create( name );
     mUIMap[ ui->getName() ] = ui;
     return ui;
 }
 
-void ShaderToyApp::closeUI( const string& name )
+void FragmentApp::closeUI( const string& name )
 {
     mUIMap[ name ]->close();
 }
 
-void ShaderToyApp::spawnUI( const string& name )
+void FragmentApp::spawnUI( const string& name )
 {
     mUIMap[ name ]->spawn();
 }
 
-void ShaderToyApp::closeUIs()
+void FragmentApp::closeUIs()
 {
     for( auto& it : mUIMap ) {
         it.second->close();
     }
 }
 
-void ShaderToyApp::spawnUIs()
+void FragmentApp::spawnUIs()
 {
     for( auto& it : mUIMap ) {
         it.second->spawn();
     }
 }
 
-void ShaderToyApp::loadUI( const fs::path &path, const string &uiName )
+void FragmentApp::loadUI( const fs::path &path, const string &uiName )
 {
     auto it = mUIMap.find( uiName );
     if( it != mUIMap.end() ) {
@@ -562,7 +608,7 @@ void ShaderToyApp::loadUI( const fs::path &path, const string &uiName )
     }
 }
 
-void ShaderToyApp::saveUI( const fs::path &path, const string &uiName )
+void FragmentApp::saveUI( const fs::path &path, const string &uiName )
 {
     auto it = mUIMap.find( uiName );
     if( it != mUIMap.end() ) {
@@ -575,46 +621,46 @@ void ShaderToyApp::saveUI( const fs::path &path, const string &uiName )
     }
 }
 
-void ShaderToyApp::killUI( WindowCanvasRef ui )
+void FragmentApp::killUI( WindowCanvasRef ui )
 {
     string name = ui->getName();
     ui->close();
     mUIMap.erase( mUIMap.find( name ) );
 }
 
-void ShaderToyApp::loadUIs( const fs::path &path )
+void FragmentApp::loadUIs( const fs::path &path )
 {
     for( auto& it : mUIMap ) {
         loadUI( path, it.first );
     }
 }
 
-void ShaderToyApp::saveUIs( const fs::path &path )
+void FragmentApp::saveUIs( const fs::path &path )
 {
     for( auto& it : mUIMap ) {
         saveUI( path, it.first );
     }
 }
 
-WindowCanvasRef ShaderToyApp::addUI( WindowCanvasRef ui )
+WindowCanvasRef FragmentApp::addUI( WindowCanvasRef ui )
 {
     ui->autoSizeToFitSubviews();
     return ui;
 }
 
-void ShaderToyApp::right( WindowCanvasRef& ui )
+void FragmentApp::right( WindowCanvasRef& ui )
 {
     ui->setSubViewAlignment( Alignment::NONE );
     ui->setSubViewDirection( Direction::EAST );
 }
 
-void ShaderToyApp::down( WindowCanvasRef& ui )
+void FragmentApp::down( WindowCanvasRef& ui )
 {
     ui->setSubViewAlignment( Alignment::LEFT );
     ui->setSubViewDirection( Direction::SOUTH );
 }
 
-void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams, gl::GlslProgRef& glslProgRef )
+void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams, gl::GlslProgRef& glslProgRef )
 {
     /*
      uniform vec3 axis0;     //multi:0.0,1.0,0.5         -> multi
@@ -733,9 +779,10 @@ void ShaderToyApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParam
 #pragma mark - COLOR PALETTE
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setupPalettes()
+void FragmentApp::setupPalettes()
 {
-    mPaletteSurfRef = Surface32f::create( loadImage( getPalettesPath( "palettes.png" ) ) );
+    
+    mPaletteSurfRef = Surface32f::create( loadImage( loadResource( PALETTES ) ) ); //loadImage( getPalettesPath( "palettes.png" ) ) );
     mPaletteTexRef = gl::Texture2d::create( *mPaletteSurfRef.get(), gl::Texture2d::Format().minFilter( GL_LINEAR ).magFilter( GL_LINEAR ).loadTopDown().dataType( GL_FLOAT ).internalFormat( GL_RGBA ) );
 }
 
@@ -743,7 +790,7 @@ void ShaderToyApp::setupPalettes()
 #pragma mark - SAVE IMAGE
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::saveImage()
+void FragmentApp::saveImage()
 {
     mSaveImagePath = getRendersPath();
     mSaveImageName = "/ShaderToy " + toString( boost::posix_time::second_clock::universal_time() );
@@ -752,7 +799,7 @@ void ShaderToyApp::saveImage()
     mSaveImage = true;
 }
 
-void ShaderToyApp::saveImageAs()
+void FragmentApp::saveImageAs()
 {
     fs::path path = getSaveFilePath( getRendersPath() );
     if( path.string().length() ) {
@@ -776,7 +823,7 @@ void ShaderToyApp::saveImageAs()
     }
 }
 
-void ShaderToyApp::saveImage( const fs::path& path, const string& filename, const string &extension )
+void FragmentApp::saveImage( const fs::path& path, const string& filename, const string &extension )
 {
     //Save Settings
     fs::path pth = path; pth += filename; save( pth );
@@ -811,7 +858,7 @@ void ShaderToyApp::saveImage( const fs::path& path, const string& filename, cons
 #pragma mark - MOVIE RECORDER
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::setupRecorder()
+void FragmentApp::setupRecorder()
 {
     string fileName = "ShaderToy " + toString( boost::posix_time::second_clock::universal_time() );
     fs::path dir = getVideoPath( fileName );
@@ -836,7 +883,7 @@ void ShaderToyApp::setupRecorder()
     }
 }
 
-void ShaderToyApp::recordOutput()
+void FragmentApp::recordOutput()
 {
     if( mMovieExporterRecording ) {
         int frameNumber = mMovieExporterCurrentFrame;
@@ -868,7 +915,7 @@ void ShaderToyApp::recordOutput()
 #pragma mark - GLSL
 //------------------------------------------------------------------------------
 
-void ShaderToyApp::saveGlsl( const fs::path& path )
+void FragmentApp::saveGlsl( const fs::path& path )
 {
     fs::path glslFolder = path;
     glslFolder += "/Shaders";
@@ -894,7 +941,7 @@ void ShaderToyApp::saveGlsl( const fs::path& path )
     }
 }
 
-void ShaderToyApp::loadGlsl( const fs::path& path )
+void FragmentApp::loadGlsl( const fs::path& path )
 {
     fs::path glslFolder = path;
     glslFolder += "/Shaders";
@@ -910,7 +957,7 @@ void ShaderToyApp::loadGlsl( const fs::path& path )
     setupGlsl();
 }
 
-void ShaderToyApp::setupGlsl()
+void FragmentApp::setupGlsl()
 {
     auto consoleUI = [ this ] {
         string name = "console";
@@ -967,4 +1014,4 @@ void ShaderToyApp::setupGlsl()
     }
 }
 
-CINDER_APP( ShaderToyApp, RendererGl( RendererGl::Options().msaa( 16 ) ), ShaderToyApp::prepareSettings )
+CINDER_APP( FragmentApp, RendererGl( RendererGl::Options().msaa( 16 ) ), FragmentApp::prepareSettings )

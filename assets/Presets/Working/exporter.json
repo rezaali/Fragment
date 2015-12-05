@@ -24,23 +24,23 @@
          "ID" : 7,
          "NAME" : "FRAMES",
          "TYPE" : "Dialer",
-         "VALUE" : 180
+         "VALUE" : 300
       },
       {
          "ID" : 8,
          "NAME" : "PROGRESS",
          "TYPE" : "Slider",
-         "VALUE" : 0
+         "VALUE" : 0.50333333015441895
       },
       {
          "ID" : 9,
          "NAME" : "ANIMATION",
          "TYPE" : "Slider",
-         "VALUE" : 0.3888888955116272
+         "VALUE" : 0.05000000074505806
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 500,
+   "XPOS" : 503,
    "YPOS" : 110
 }

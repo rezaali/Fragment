@@ -6,13 +6,13 @@
          "ID" : 0,
          "NAME" : "PX",
          "TYPE" : "Dialer",
-         "VALUE" : 0
+         "VALUE" : 92
       },
       {
          "ID" : 1,
          "NAME" : "PY",
          "TYPE" : "Dialer",
-         "VALUE" : 45
+         "VALUE" : 105
       },
       {
          "ID" : 2,
@@ -48,13 +48,13 @@
          "ID" : 11,
          "NAME" : "CX",
          "TYPE" : "Dialer",
-         "VALUE" : 388
+         "VALUE" : 188
       },
       {
          "ID" : 12,
          "NAME" : "CY",
          "TYPE" : "Dialer",
-         "VALUE" : 291
+         "VALUE" : 279
       },
       {
          "ID" : 13,
@@ -77,6 +77,6 @@
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 500,
-   "YPOS" : 212
+   "XPOS" : 683,
+   "YPOS" : 176
 }
