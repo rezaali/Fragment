@@ -1,0 +1,46 @@
+{
+   "ID" : -1,
+   "NAME" : "exporter",
+   "SUBVIEWS" : [
+      {
+         "ID" : 2,
+         "NAME" : "OUTPUT IMAGE SCALE",
+         "TYPE" : "Dialer",
+         "VALUE" : 10
+      },
+      {
+         "ID" : 4,
+         "NAME" : "RECORD",
+         "TYPE" : "Toggle",
+         "VALUE" : true
+      },
+      {
+         "ID" : 5,
+         "NAME" : "MOV",
+         "TYPE" : "Toggle",
+         "VALUE" : true
+      },
+      {
+         "ID" : 6,
+         "NAME" : "PNG",
+         "TYPE" : "Toggle",
+         "VALUE" : false
+      },
+      {
+         "ID" : 7,
+         "NAME" : "FRAMES",
+         "TYPE" : "Dialer",
+         "VALUE" : 180
+      },
+      {
+         "ID" : 8,
+         "NAME" : "PROGRESS",
+         "TYPE" : "Slider",
+         "VALUE" : 0
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 507,
+   "YPOS" : 45
+}

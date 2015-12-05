@@ -1,0 +1,31 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "freq",
+         "TYPE" : "Slider",
+         "VALUE" : 3.7647058963775635
+      },
+      {
+         "ID" : 3,
+         "NAME" : "edge",
+         "TYPE" : "Slider",
+         "VALUE" : 64
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 527,
+   "YPOS" : 286
+}

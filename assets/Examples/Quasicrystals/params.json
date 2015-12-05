@@ -1,0 +1,33 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 0,
+         "NAME" : "BG",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 1,
+         "NAME" : "UNIFORMS",
+         "TYPE" : "MultiSlider",
+         "offsetX" : 1,
+         "offsetY" : 1,
+         "palette" : 0.38725489377975464,
+         "paletteHigh" : 1,
+         "paletteLow" : 0,
+         "pixels" : 11.450980186462402,
+         "scale" : 32,
+         "symmetry" : 8.6274509429931641,
+         "tscale" : 11.764705657958984
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 498,
+   "YPOS" : 319
+}
