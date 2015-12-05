@@ -6,7 +6,7 @@
          "ID" : 2,
          "NAME" : "OUTPUT IMAGE SCALE",
          "TYPE" : "Dialer",
-         "VALUE" : 10
+         "VALUE" : 4
       },
       {
          "ID" : 5,
@@ -30,17 +30,17 @@
          "ID" : 8,
          "NAME" : "PROGRESS",
          "TYPE" : "Slider",
-         "VALUE" : 0.50333333015441895
+         "VALUE" : 0
       },
       {
          "ID" : 9,
          "NAME" : "ANIMATION",
          "TYPE" : "Slider",
-         "VALUE" : 0.05000000074505806
+         "VALUE" : 0.34999999403953552
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 503,
-   "YPOS" : 110
+   "XPOS" : 501,
+   "YPOS" : 45
 }

@@ -21,7 +21,10 @@
 
 /*
 To Do List: 
- Created Example Directory
+ Create New Button
+ Add Key Bindings to Save on apple+s
+ Add Key Bindinds to Render image on apple+r
+ Add Key Bindings to all UIs
 */
 
 using namespace ci;
@@ -412,7 +415,7 @@ WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
     down( ui );
     
     ui->addSpacer();
-    ui->addButton( "SAVE AS", false )->setCallback([ this ]( bool value ) {
+    ui->addButton( "SAVE AS", false )->setCallback( [ this ]( bool value ) {
         if( value ) {
             fs::path pth = getSaveFilePath( getPresetsPath() );
             string folderName = pth.filename().string();
@@ -945,13 +948,13 @@ void FragmentApp::loadGlsl( const fs::path& path )
 {
     fs::path glslFolder = path;
     glslFolder += "/Shaders";
+    if( !fs::exists( glslFolder ) ) { return; }
     for( auto &it : mGlslPathMap ) {
         fs::path newfile = glslFolder;
         newfile += "/" + it.first;
+        if( !fs::exists( newfile ) ) { return; }
         fs::path oldFile = getShadersPath( it.first );
-        if( fs::exists( oldFile ) ) {
-            fs::remove( oldFile );
-        }
+        if( fs::exists( oldFile ) ) { fs::remove( oldFile ); }
         fs::copy( newfile, oldFile );
     }
     setupGlsl();
