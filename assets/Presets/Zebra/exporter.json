@@ -36,11 +36,11 @@
          "ID" : 9,
          "NAME" : "ANIMATION",
          "TYPE" : "Slider",
-         "VALUE" : 0.21333333849906921
+         "VALUE" : 0.61333334445953369
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 501,
+   "XPOS" : 504,
    "YPOS" : 45
 }

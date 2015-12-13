@@ -14,6 +14,7 @@
 
 //BLOCKS
 #include "UI.h"
+#include "Helpers.h"
 #include "Tiler.h"
 #include "LiveAsset.h"
 #include "GlslParams.h"
@@ -304,12 +305,13 @@ void FragmentApp::updateOutput()
         saveImage( mSaveImagePath, mSaveImageName, mSaveImageExtension );
         mSaveImage = false;
     }
-    
-    if( mMovieExporterCurrentFrame >= mMovieExporterTotalFrames ) {
-        mMovieExporterCurrentFrame = 0;
+    if( !mSaveImage ) {
+        if( mMovieExporterCurrentFrame >= mMovieExporterTotalFrames ) {
+            mMovieExporterCurrentFrame = 0;
+        }
+        mMovieExporterCurrentFrame++;
+        mMovieExporterCurrentTime = float( mMovieExporterCurrentFrame ) / float( mMovieExporterTotalFrames );
     }
-    mMovieExporterCurrentFrame++;
-    mMovieExporterCurrentTime = float( mMovieExporterCurrentFrame ) / float( mMovieExporterTotalFrames );
 }
 
 void FragmentApp::drawOutput()
@@ -432,6 +434,14 @@ WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
         if( value ) {
             auto pth = getFolderPath( getPresetsPath() );
             if( !pth.empty() ) {
+                load( pth );
+            }
+        }
+    });
+    ui->addButton( "NEW", false )->setCallback( [ this ]( bool value ) {
+        if( value ) {
+            auto pth = getPresetsPath( "New" );
+            if( fs::exists( pth ) ) {
                 load( pth );
             }
         }
@@ -665,6 +675,17 @@ void FragmentApp::down( WindowCanvasRef& ui )
 
 void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams, gl::GlslProgRef& glslProgRef )
 {
+    auto calculatePrecision = []( float value ) {
+        std::ostringstream out;
+        out << value;
+        string num = out.str();
+        size_t found = num.find( "." );
+        int len = 0;
+        if( found != string::npos ) {
+            len = num.size() - 1 - found;
+        }
+        return len;
+    };
     /*
      uniform vec3 axis0;     //multi:0.0,1.0,0.5         -> multi
      uniform vec2 axis1;     //multi:0.0,1.0,0.5         -> multi
@@ -724,21 +745,45 @@ void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams
             float* ptr = &fp[ name ];
             float low = fr[ name ].first;
             float high = fr[ name ].second;
-            if( uitype == "slider" ) { ui->addSliderf( name, &fp.at( name ), low, high ); }
-            else if( uitype == "dialer" ) { ui->addDialerf( name, ptr, low, high ); }
-            else if( uitype == "ui" ) { data.emplace_back( MultiSlider::Data( name, ptr, low, high ) ); }
+            if( uitype == "slider" ) {
+                ui->addSliderf( name, &fp.at( name ), low, high );
+            }
+            else if( uitype == "dialer" ) {
+                ui->addDialerf( name, ptr, low, high, Dialerf::Format().precision( max( calculatePrecision( *ptr ), 1 ) ) );
+            }
+            else if( uitype == "ui" ) {
+                data.emplace_back( MultiSlider::Data( name, ptr, low, high ) );
+            }
         }
         else if( type == "vec2" ) {
             vec2* ptr = &v2p[ name ];
             float low = v2r[ name ].first;
             float high = v2r[ name ].second;
             if( uitype == "range" ) { ui->addRangef( name, &ptr->x, &ptr->y, low, high ); }
-            else if( uitype == "pad" ) { ui->addXYPad( name, ptr, XYPad::Format().min( vec2( low, high ) ).max( vec2( high, low ) ) ); }
+            else if( uitype == "pad" ) {
+                ui->addXYPad( name, ptr, XYPad::Format().min( vec2( low, high ) ).max( vec2( high, low ) ) );
+            }
             else if( uitype == "ui" ) {
                 ui->addMultiSlider( name, {
                     MultiSlider::Data( name + "-X", &ptr->x, low, high ),
                     MultiSlider::Data( name + "-Y", &ptr->y, low, high )
                 } );
+            }
+            else if( uitype == "slider" ) {
+                ui->addSliderf( name + "-X", &ptr->x, low, high );
+                ui->addSliderf( name + "-Y", &ptr->y, low, high );
+            }
+            else if( uitype == "dialer" ) {
+                ui->addSpacer();
+                auto fmt = Dialerf::Format().fontSize( FontSize::SMALL ).precision( max( calculatePrecision( ptr->x ), 1 ) ).label( false );
+                auto lb = ui->addLabel( name, FontSize::SMALL );
+                vec2 lbo = lb->getOrigin( false );
+                right( ui );
+                ui->addDialerf( "X", &ptr->x, low, high, fmt );
+                ui->addDialerf( "Y", &ptr->y, low, high, fmt );
+                lb->setOrigin( lbo + vec2( 0.0, lb->getPadding().mTop ) );
+                down( ui );
+                ui->addSpacer();
             }
         }
         else if( type == "vec3" ) {
@@ -751,6 +796,24 @@ void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams
                     MultiSlider::Data( name + "-Y", &ptr->y, low, high ),
                     MultiSlider::Data( name + "-Z", &ptr->z, low, high )
                 } );
+            }
+            else if( uitype == "slider" ) {
+                ui->addSliderf( name + "-X", &ptr->x, low, high );
+                ui->addSliderf( name + "-Y", &ptr->y, low, high );
+                ui->addSliderf( name + "-Z", &ptr->z, low, high );
+            }
+            else if( uitype == "dialer" ) {
+                ui->addSpacer();
+                auto fmt = Dialerf::Format().fontSize( FontSize::SMALL ).precision( max( calculatePrecision( ptr->x ), 1 ) ).label( false );
+                auto lb = ui->addLabel( name, FontSize::SMALL );
+                vec2 lbo = lb->getOrigin( false );
+                right( ui );
+                ui->addDialerf( "X", &ptr->x, low, high, fmt );
+                ui->addDialerf( "Y", &ptr->y, low, high, fmt );
+                ui->addDialerf( "Z", &ptr->z, low, high, fmt );
+                lb->setOrigin( lbo + vec2( 0.0, lb->getPadding().mTop ) );
+                down( ui );
+                ui->addSpacer();
             }
         }
         else if( type == "vec4" ) {
@@ -765,10 +828,35 @@ void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams
                     MultiSlider::Data( name + "-W", &ptr->w, low, high )
                 } );
             }
+            else if( uitype == "slider" ) {
+                vec4* ptr = &v4p[ name ];
+                float low = v4r[ name ].first;
+                float high = v4r[ name ].second;
+                ui->addSliderf( name + "-X", &ptr->x, low, high );
+                ui->addSliderf( name + "-Y", &ptr->y, low, high );
+                ui->addSliderf( name + "-Z", &ptr->z, low, high );
+                ui->addSliderf( name + "-W", &ptr->w, low, high );
+            }
+            else if( uitype == "dialer" ) {
+                ui->addSpacer();
+                vec4* ptr = &v4p[ name ];
+                float low = v4r[ name ].first;
+                float high = v4r[ name ].second;
+                auto fmt = Dialerf::Format().fontSize( FontSize::SMALL ).precision( max( calculatePrecision( ptr->x ), 1 ) ).label( false );
+                auto lb = ui->addLabel( name, FontSize::SMALL );
+                vec2 lbo = lb->getOrigin( false );
+                right( ui );
+                ui->addDialerf( name + "-X", &ptr->x, low, high, fmt );
+                ui->addDialerf( name + "-Y", &ptr->y, low, high, fmt );
+                ui->addDialerf( name + "-Z", &ptr->z, low, high, fmt );
+                ui->addDialerf( name + "-W", &ptr->w, low, high, fmt );
+                lb->setOrigin( lbo + vec2( 0.0, lb->getPadding().mTop ) );
+                down( ui );
+                ui->addSpacer();
+            }
             else if( uitype == "color" ) {
                 ui->addColorPicker( name, &cp[ name ] );
             }
-            
         }
     }
     
