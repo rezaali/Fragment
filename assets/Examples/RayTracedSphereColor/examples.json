@@ -1,0 +1,96 @@
+{
+   "ID" : -1,
+   "NAME" : "examples",
+   "SUBVIEWS" : [
+      {
+         "ACTIVE" : "RayTracedSphereColor",
+         "ID" : 1,
+         "NAME" : "Examples",
+         "SUBVIEWS" : [
+            {
+               "ID" : 0,
+               "NAME" : "Checkers",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 1,
+               "NAME" : "Fragment_Icon",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 2,
+               "NAME" : "iq_shadertoy_shapes",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 3,
+               "NAME" : "LavaLamp",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 4,
+               "NAME" : "Quasicrystals",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 5,
+               "NAME" : "RayOrigin",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 6,
+               "NAME" : "RayTracedSphere",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 7,
+               "NAME" : "RayTracedSphereColor",
+               "TYPE" : "Toggle",
+               "VALUE" : true
+            },
+            {
+               "ID" : 8,
+               "NAME" : "SacredGeometry",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 9,
+               "NAME" : "Voronoi",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 10,
+               "NAME" : "Ycam",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 11,
+               "NAME" : "Zebra",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 12,
+               "NAME" : "ZebraSphere",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            }
+         ],
+         "TYPE" : "Radio"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 213,
+   "YPOS" : 662
+}

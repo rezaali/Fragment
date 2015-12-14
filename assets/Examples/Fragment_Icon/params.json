@@ -6,13 +6,13 @@
          "ALPHA" : 1,
          "BLUE" : 0.80804944038391113,
          "GREEN" : 0.80804944038391113,
-         "ID" : 0,
+         "ID" : 1,
          "NAME" : "BACKGROUND COLOR",
          "RED" : 0.80804944038391113,
          "TYPE" : "ColorPicker"
       },
       {
-         "ID" : 3,
+         "ID" : 2,
          "NAME" : "UNIFORMS",
          "TYPE" : "MultiSlider",
          "antialias" : 0.010294117964804173,
@@ -26,6 +26,6 @@
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 500,
-   "YPOS" : 335
+   "XPOS" : 501,
+   "YPOS" : 89
 }

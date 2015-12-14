@@ -6,7 +6,7 @@
          "ALPHA" : 1,
          "BLUE" : 0,
          "GREEN" : 0,
-         "ID" : 0,
+         "ID" : 1,
          "NAME" : "BACKGROUND COLOR",
          "RED" : 0,
          "TYPE" : "ColorPicker"
@@ -26,6 +26,6 @@
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 527,
-   "YPOS" : 286
+   "XPOS" : 501,
+   "YPOS" : 89
 }

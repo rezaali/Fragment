@@ -1,0 +1,25 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 1,
+         "NAME" : "xPos",
+         "TYPE" : "Slider",
+         "VALUE" : 0.49509802460670471
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

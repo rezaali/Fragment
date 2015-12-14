@@ -6,24 +6,24 @@
          "ALPHA" : 1,
          "BLUE" : 0,
          "GREEN" : 0,
-         "ID" : 0,
-         "NAME" : "BG",
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
          "RED" : 0,
          "TYPE" : "ColorPicker"
       },
       {
-         "ID" : 1,
+         "ID" : 2,
          "NAME" : "UNIFORMS",
          "TYPE" : "MultiSlider",
          "contrast" : 96.627449035644531,
          "frequence" : 6.2745099067687988,
          "palette" : 0,
          "power" : 0.019607843831181526,
-         "timeScale" : 0
+         "timeScale" : 0.88235294818878174
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 499,
-   "YPOS" : 271
+   "XPOS" : 501,
+   "YPOS" : 89
 }

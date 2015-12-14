@@ -3,6 +3,7 @@
    "NAME" : "examples",
    "SUBVIEWS" : [
       {
+         "ACTIVE" : "ZebraSphere",
          "ID" : 1,
          "NAME" : "Examples",
          "SUBVIEWS" : [
@@ -14,25 +15,25 @@
             },
             {
                "ID" : 1,
-               "NAME" : "Fragment_Icon",
+               "NAME" : "Dots",
                "TYPE" : "Toggle",
                "VALUE" : false
             },
             {
                "ID" : 2,
-               "NAME" : "iq_shadertoy_shapes",
+               "NAME" : "Fragment_Icon",
                "TYPE" : "Toggle",
                "VALUE" : false
             },
             {
                "ID" : 3,
-               "NAME" : "Quasicrystals",
+               "NAME" : "LavaLamp",
                "TYPE" : "Toggle",
                "VALUE" : false
             },
             {
                "ID" : 4,
-               "NAME" : "RayOrigin",
+               "NAME" : "Quasicrystals",
                "TYPE" : "Toggle",
                "VALUE" : false
             },
@@ -53,6 +54,18 @@
                "NAME" : "SacredGeometry",
                "TYPE" : "Toggle",
                "VALUE" : false
+            },
+            {
+               "ID" : 8,
+               "NAME" : "Zebra",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 9,
+               "NAME" : "ZebraSphere",
+               "TYPE" : "Toggle",
+               "VALUE" : true
             }
          ],
          "TYPE" : "Radio"
@@ -60,6 +73,6 @@
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 254,
-   "YPOS" : 591
+   "XPOS" : 213,
+   "YPOS" : 662
 }

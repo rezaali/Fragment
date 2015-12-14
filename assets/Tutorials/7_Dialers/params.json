@@ -1,0 +1,31 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 3,
+         "NAME" : "X",
+         "TYPE" : "Dialer",
+         "VALUE" : 3
+      },
+      {
+         "ID" : 4,
+         "NAME" : "Y",
+         "TYPE" : "Dialer",
+         "VALUE" : 3
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

@@ -9,12 +9,6 @@
          "VALUE" : 10
       },
       {
-         "ID" : 4,
-         "NAME" : "RECORD",
-         "TYPE" : "Toggle",
-         "VALUE" : true
-      },
-      {
          "ID" : 5,
          "NAME" : "MOV",
          "TYPE" : "Toggle",
@@ -41,6 +35,6 @@
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 507,
-   "YPOS" : 45
+   "XPOS" : 213,
+   "YPOS" : 569
 }

@@ -86,7 +86,6 @@ public:
     int mSaveImageFrame = -1;
     int mSaveImageSizeMultiplier = 4;
     
-    void saveImage();
     void saveImageAs();
     void saveImage( const ci::fs::path& path, const std::string &filename, const std::string &extension );
     
@@ -101,6 +100,12 @@ public:
     bool mMovieExporterRecording = false;
     bool mMovieExporterSaveMovie = true;
     bool mMovieExporterSaveFrames = false;
+    
+    fs::path mSaveMoviePath;
+    fs::path mSaveMovieName;
+    string mSaveMovieExtension;
+    
+    void saveMovieAs();
     void setupRecorder();
     void recordOutput();
     
@@ -126,6 +131,7 @@ public:
     WindowCanvasRef createUI( const std::string& name );
     void closeUI( const string& name );
     void spawnUI( const string& name );
+    void arrangeUIWindows();
     void closeUIs();
     void spawnUIs();
     
@@ -140,6 +146,7 @@ public:
     WindowCanvasRef setupShaderUI( WindowCanvasRef ui );
     WindowCanvasRef setupExporterUI( WindowCanvasRef ui );
     WindowCanvasRef setupExamplesUI( WindowCanvasRef ui );
+    WindowCanvasRef setupTutorialsUI( WindowCanvasRef ui );
     WindowCanvasRef setupConsoleUI( WindowCanvasRef ui );
     
     void loadGlsl( const fs::path &path );
@@ -159,7 +166,17 @@ public:
     vec2 mTexcoordOffset = vec2( 0.0f );
     float mTexcoordScale = 0.0;
     
-    bool firstTime = true;
+    //SAVING & LOADING
+    fs::path mDefaultSaveLoadPath;
+    fs::path mDefaultMoviePath;
+    fs::path mDefaultRenderPath;
+    
+    void setupSettings();
+    void saveSettings();
+    void loadSettings();
+    
+    void saveSession();
+    void loadSession();
 };
 
 //------------------------------------------------------------------------------
@@ -183,10 +200,21 @@ void FragmentApp::setup()
         Timer mTime;
         mTime.start();
         createDirectory( getPath( "Examples" ) );
-        createAssetDirectories();
-        
+        createDirectory( getPath( "Tutorials" ) );
+        createDirectory( getPresetsPath() );
+        createDirectory( getWorkingPath() );
+        createDirectory( getVideoPath() );
+        createDirectory( getRendersPath() );
+        createDirectory( getShadersPath() );
         mTime.stop();
         cout << "createAssetDirectories: " << mTime.getSeconds() << endl;
+    }
+    {
+        Timer mTime;
+        mTime.start();
+        setupSettings();
+        mTime.stop();
+        cout << "setupSettings: " << mTime.getSeconds() << endl;
     }
     {
         Timer mTime;
@@ -220,6 +248,7 @@ void FragmentApp::setup()
         Timer mTime;
         mTime.start();
         loadUIs( getWorkingPath() );
+        loadSettings();
         mTime.stop();
         cout << "load: " << mTime.getSeconds() << endl;
     }
@@ -231,6 +260,7 @@ void FragmentApp::setup()
 
 void FragmentApp::cleanup()
 {
+    saveSettings();
     save( getWorkingPath() );
 }
 
@@ -357,6 +387,11 @@ void FragmentApp::keyDownOutput( KeyEvent event )
             case KeyEvent::KEY_r: { spawnUI( "exporter" ); } break;
             case KeyEvent::KEY_c: { spawnUI( "console" ); } break;
             case KeyEvent::KEY_e: { spawnUI( "examples" ); } break;
+            case KeyEvent::KEY_t: { spawnUI( "tutorials" ); } break;
+            case KeyEvent::KEY_s: { if( event.isShiftDown() ) { saveImageAs(); } else { saveSession(); } } break;
+            case KeyEvent::KEY_m: { saveMovieAs(); } break;
+            case KeyEvent::KEY_o: { loadSession(); } break;
+            case KeyEvent::KEY_w: { arrangeUIWindows(); } break;
             case KeyEvent::KEY_f: {
                 mOutputWindowRef->setFullScreen( !mOutputWindowRef->isFullScreen() );
             }
@@ -398,7 +433,12 @@ void FragmentApp::setupUIs()
     addUI( setupShaderUI( createUI( "params") ) );
     addUI( setupExporterUI( createUI( "exporter" ) ) );
     addUI( setupExamplesUI( createUI( "examples" ) ) );
+    addUI( setupTutorialsUI( createUI( "tutorials" ) ) );
     addUI( setupConsoleUI( createUI( "console" ) ) );
+    
+    for( auto& it : mUIMap ) {
+        it.second->getWindow()->getSignalKeyDown().connect( [ this ] ( KeyEvent event ) { keyDownOutput( event ); } );
+    }
 }
 
 WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
@@ -417,27 +457,9 @@ WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
     down( ui );
     
     ui->addSpacer();
-    ui->addButton( "SAVE AS", false )->setCallback( [ this ]( bool value ) {
-        if( value ) {
-            fs::path pth = getSaveFilePath( getPresetsPath() );
-            string folderName = pth.filename().string();
-            if( folderName.length() ) {
-                if( createDirectory( pth ) ) {
-                    save( pth );
-                    save( getWorkingPath() );
-                }
-            }
-        }
-    } )->bindToKey( KeyEvent::KEY_s, KeyEvent::META_DOWN );
+    ui->addButton( "SAVE AS", false )->setCallback( [ this ]( bool value ) { if( value ) { saveSession(); } } );
     right( ui );
-    ui->addButton( "LOAD", false )->setCallback( [ this ]( bool value ) {
-        if( value ) {
-            auto pth = getFolderPath( getPresetsPath() );
-            if( !pth.empty() ) {
-                load( pth );
-            }
-        }
-    });
+    ui->addButton( "LOAD", false )->setCallback( [ this ]( bool value ) { if( value ) { loadSession(); } });
     ui->addButton( "NEW", false )->setCallback( [ this ]( bool value ) {
         if( value ) {
             auto pth = getPresetsPath( "New" );
@@ -468,29 +490,19 @@ WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
 
 WindowCanvasRef FragmentApp::setupShaderUI( WindowCanvasRef ui )
 {
-    ui->addColorPicker( "BACKGROUND COLOR", &mBgColor );
     ui->addSpacer();
+    ui->addColorPicker( "BACKGROUND COLOR", &mBgColor );
     addShaderParamsUI( ui, mGlsParams, mGlslRef );
     return ui;
 }
 
 WindowCanvasRef FragmentApp::setupExporterUI( WindowCanvasRef ui )
 {
-    ui->addButton( "SAVE IMAGE", false )->setCallback( [ this ] ( bool value ) { if( value ) { saveImage(); } } )->bindToKey( KeyEvent::KEY_r, KeyEvent::META_DOWN );
-    right( ui );
-    ui->addButton( "SAVE IMAGE AS", false )->setCallback( [ this ] ( bool value ) { if( value ) { saveImageAs(); }
-    } );
+    ui->addButton( "SAVE IMAGE AS", false )->setCallback( [ this ] ( bool value ) { if( value ) { saveImageAs(); } } );
     down( ui );
     ui->addDialeri( "OUTPUT IMAGE SCALE", &mSaveImageSizeMultiplier, 1, 20 );
-    
     ui->addSpacer();
-    ui->addButton( "RENDER", false )->setCallback( [ this ] ( bool value ) {
-        if( value && ( mMovieExporterSaveMovie || mMovieExporterSaveFrames ) ) {
-            mMovieExporterCurrentFrame = -1;
-            mMovieExporterRecording = true;
-            setupRecorder();
-        }
-    } );
+    ui->addButton( "RENDER", false )->setCallback( [ this ] ( bool value ) { if( value && ( mMovieExporterSaveMovie || mMovieExporterSaveFrames ) ) { saveMovieAs(); } } );
     right( ui );
     ui->addToggle( "MOV", &mMovieExporterSaveMovie );
     ui->addToggle( "PNG", &mMovieExporterSaveFrames );
@@ -498,7 +510,7 @@ WindowCanvasRef FragmentApp::setupExporterUI( WindowCanvasRef ui )
     down( ui );
     ui->setSliderHeight( 8 );
     ui->addSliderf( "PROGRESS", &mMovieExporterProgress, 0.0, 1.0, Sliderf::Format().label( false ) );
-    ui->addSliderf( "ANIMATION", &mMovieExporterCurrentTime, 0.0, 1.0, Sliderf::Format().label( false ) );
+//    ui->addSliderf( "ANIMATION", &mMovieExporterCurrentTime, 0.0, 1.0, Sliderf::Format().label( false ) );
     return ui;
 }
 
@@ -515,7 +527,6 @@ WindowCanvasRef FragmentApp::setupExamplesUI( WindowCanvasRef ui )
     for(; it != eit; ++it ) {
         if( fs::is_directory( it->path() ) ) {
             string path = it->path().native();
-            cout << path << endl;
             size_t lastSlash = path.rfind( getPathSeparator(), path.length() );
             if( lastSlash == string::npos ) {
                 examples.push_back( path );
@@ -532,6 +543,38 @@ WindowCanvasRef FragmentApp::setupExamplesUI( WindowCanvasRef ui )
         }
     });
 
+    return ui;
+}
+
+WindowCanvasRef FragmentApp::setupTutorialsUI( WindowCanvasRef ui )
+{
+    ui->setTriggerSubViews( false );
+    ui->setLoadSubViews( false );
+    ui->addSpacer();
+    
+    fs::path tutorialsPath = getPath( "Tutorials/" );
+    vector<string> tutorials;
+    
+    fs::directory_iterator it( tutorialsPath ), eit;
+    for(; it != eit; ++it ) {
+        if( fs::is_directory( it->path() ) ) {
+            string path = it->path().native();
+            size_t lastSlash = path.rfind( getPathSeparator(), path.length() );
+            if( lastSlash == string::npos ) {
+                tutorials.push_back( path );
+            } else {
+                tutorials.push_back( path.substr( lastSlash + 1, string::npos ) );
+            }
+        }
+    }
+    
+    ui->addRadio( "Tutorials", tutorials )
+    ->setCallback( [ this ] ( string name, bool value ) {
+        if( value ) {
+            load( getPath( "Tutorials/" + name ) );
+        }
+    });
+    
     return ui;
 }
 
@@ -594,6 +637,36 @@ void FragmentApp::closeUI( const string& name )
 void FragmentApp::spawnUI( const string& name )
 {
     mUIMap[ name ]->spawn();
+}
+
+void FragmentApp::arrangeUIWindows()
+{
+    spawnUIs();
+    
+    float ht = 23.0;
+    float sp = 1.0;
+    
+    mOutputWindowRef->setPos( 0, ht );
+    mOutputWindowRef->setSize( 500, 500 );
+
+    auto frag = mUIMap[ "fragment" ];       //done
+    auto pars = mUIMap[ "params" ];         //done
+    auto expt = mUIMap[ "exporter" ];       //done
+    auto exam = mUIMap[ "examples" ];       //done
+    auto tuto = mUIMap[ "tutorials" ];      //done
+    auto coso = mUIMap[ "console" ];        //done
+
+    vec2 p = mOutputWindowRef->getPos();
+    vec2 s = mOutputWindowRef->getSize();
+    
+    frag->setPos( vec2( 0.0, p.y + s.y + ht * 2.0 ) );
+    tuto->setPos( vec2( 0.0, frag->getPos().y + frag->getHeight() + sp + ht ) );
+    
+    expt->setPos( vec2( frag->getPos().x + frag->getWidth() + sp, frag->getPos().y ) );
+    exam->setPos( vec2( expt->getPos().x, expt->getPos().y + expt->getHeight() + sp + ht ) );
+
+    coso->setPos( vec2( p.x + s.x + sp, ht * 2.0 ) );
+    pars->setPos( vec2( coso->getPos().x, coso->getPos().y + coso->getHeight() + ht + sp ) );
 }
 
 void FragmentApp::closeUIs()
@@ -861,7 +934,6 @@ void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams
     }
     
     if( data.size() ) {
-        ui->addSpacer();
         ui->addMultiSlider( "UNIFORMS", data );
     }
 }
@@ -872,7 +944,6 @@ void FragmentApp::addShaderParamsUI( WindowCanvasRef &ui, GlslParams& glslParams
 
 void FragmentApp::setupPalettes()
 {
-    
     mPaletteSurfRef = Surface32f::create( loadImage( loadResource( PALETTES ) ) ); //loadImage( getPalettesPath( "palettes.png" ) ) );
     mPaletteTexRef = gl::Texture2d::create( *mPaletteSurfRef.get(), gl::Texture2d::Format().minFilter( GL_LINEAR ).magFilter( GL_LINEAR ).loadTopDown().dataType( GL_FLOAT ).internalFormat( GL_RGBA ) );
 }
@@ -881,19 +952,11 @@ void FragmentApp::setupPalettes()
 #pragma mark - SAVE IMAGE
 //------------------------------------------------------------------------------
 
-void FragmentApp::saveImage()
-{
-    mSaveImagePath = getRendersPath();
-    mSaveImageName = "/ShaderToy " + toString( boost::posix_time::second_clock::universal_time() );
-    mSaveImageExtension = "png";
-    mSaveImageFrame = getElapsedFrames();
-    mSaveImage = true;
-}
-
 void FragmentApp::saveImageAs()
 {
-    fs::path path = getSaveFilePath( getRendersPath() );
-    if( path.string().length() ) {
+    fs::path path = getSaveFilePath( mDefaultRenderPath );
+    if( !path.empty() ) {
+        mDefaultRenderPath = path.parent_path();
         string fileName = path.filename().string();
         string ext = path.extension().string();
         string dir = path.parent_path().string() + "/";
@@ -949,17 +1012,41 @@ void FragmentApp::saveImage( const fs::path& path, const string& filename, const
 #pragma mark - MOVIE RECORDER
 //------------------------------------------------------------------------------
 
+void FragmentApp::saveMovieAs()
+{
+    fs::path path = getSaveFilePath( mDefaultMoviePath );
+    if( !path.empty() ) {
+        mDefaultMoviePath = path.parent_path();
+        
+        string fileName = path.filename().string();
+        string dir = path.parent_path().string() + "/";
+        fs::path opath = fs::path( dir );
+        
+        auto it = fileName.rfind( "." );
+        if( it != string::npos ) { fileName = fileName.substr( 0, it ); }
+        
+        mSaveMoviePath = opath;
+        mSaveMovieName = fileName;
+        mSaveMovieExtension = "mov";
+
+        mMovieExporterCurrentFrame = 0;
+        mMovieExporterRecording = true;
+        setupRecorder();
+    }
+}
+
 void FragmentApp::setupRecorder()
 {
-    string fileName = "ShaderToy " + toString( boost::posix_time::second_clock::universal_time() );
-    fs::path dir = getVideoPath( fileName );
+    string fileName = mSaveMovieName.native();
+    fs::path dir = mSaveMoviePath;
+    dir += "/" + fileName;
     save( dir );
+    
     fs::path path = dir;
-    path += ".mov";
+    path += "." + mSaveMovieExtension;
     
     if( mMovieExporterSaveMovie ) {
-        auto format = qtime::MovieWriter::Format().codec( qtime::MovieWriter::JPEG ).fileType( qtime::MovieWriter::QUICK_TIME_MOVIE )
-        .averageBitsPerSecond( 1000000000 ).defaultFrameDuration( 1.0 / 60.0 );
+        auto format = qtime::MovieWriter::Format().codec( qtime::MovieWriter::JPEG ).jpegQuality( 1.0 ).fileType( qtime::MovieWriter::QUICK_TIME_MOVIE ).averageBitsPerSecond( 1000000000 ).defaultFrameDuration( 1.0 / 60.0 );
         mMovieExporter = qtime::MovieWriter::create( path, toPixels( mOutputWindowRef->getWidth() ), toPixels( mOutputWindowRef->getHeight() ), format );
     }
     
@@ -978,26 +1065,28 @@ void FragmentApp::recordOutput()
 {
     if( mMovieExporterRecording ) {
         int frameNumber = mMovieExporterCurrentFrame;
-        if( frameNumber < mMovieExporterTotalFrames ) {
+        if( frameNumber <= mMovieExporterTotalFrames ) {
             mMovieExporterProgress = float( frameNumber ) / float( mMovieExporterTotalFrames );
             if( mMovieExporterSaveMovie ) {
                 mMovieExporter->addFrame( copyWindowSurface() );
             }
             if( mMovieExporterSaveFrames ) {
                 fs::path path = mSequenceTilerPath;
-                path += "/Sequence ";
+                path += "/" + mSaveMovieName.native() + " ";
                 path += toString( frameNumber );
                 path += ".";
                 path += "png";
                 writeImage( path, mSequenceTiler->getSurface(), ImageTarget::Options().quality( 1.0 ) );
             }
-        } else {
-            if( mMovieExporterSaveMovie ) {
-                mMovieExporter->finish();
-                mMovieExporter.reset();
+            if( frameNumber == mMovieExporterTotalFrames )
+            {
+                if( mMovieExporterSaveMovie ) {
+                    mMovieExporter->finish();
+                    mMovieExporter.reset();
+                }
+                mMovieExporterRecording = false;
+                mMovieExporterProgress = 0.0f;
             }
-            mMovieExporterRecording = false;
-            mMovieExporterProgress = 0.0f;
         }
     }
 }
@@ -1070,6 +1159,7 @@ void FragmentApp::setupGlsl()
             try {
                 mCompiledGlsl = true;
                 gl::ShaderPreprocessor pp;
+                pp.setVersion( 330 );
                 pp.addSearchDirectory( getShadersPath( "Common" ) );
                 vector<string> sources = { pp.parse( vertShaderPath ), pp.parse( fragShaderPath ) };
                 
@@ -1102,6 +1192,90 @@ void FragmentApp::setupGlsl()
         mCompiledGlsl = false;
         mCompiledMessageError = exc.what();
         cout << "GLSL Load Error: " << exc.what() << endl;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+#pragma mark - DEFAULT PATH
+//------------------------------------------------------------------------------
+
+void FragmentApp::setupSettings()
+{
+    mDefaultSaveLoadPath = getPath( "Examples/" );
+    mDefaultMoviePath = getVideoPath();
+    mDefaultRenderPath = getRendersPath();
+}
+
+void FragmentApp::saveSettings()
+{
+    JsonTree tree;
+    tree.addChild( JsonTree( "SESSION_PATH", mDefaultSaveLoadPath.native() ) );
+    tree.addChild( JsonTree( "MOVIE_PATH", mDefaultMoviePath.native() ) );
+    tree.addChild( JsonTree( "RENDER_PATH", mDefaultRenderPath.native() ) );
+    tree.write( getPresetsPath( "Working/settings.json" ) );
+}
+
+void FragmentApp::loadSettings()
+{
+    fs::path pth = getWorkingPath();
+    pth += "/settings.json";
+    
+    if( fs::exists( pth ) ) {
+        JsonTree tree( loadFile( pth ) );
+        if( tree.hasChild( "SESSION_PATH" ) ) {
+            mDefaultSaveLoadPath = fs::path( tree.getValueForKey<string>( "SESSION_PATH" ) );
+            if( !fs::exists( mDefaultSaveLoadPath ) ) {
+                mDefaultSaveLoadPath = getPath( "Examples/" );
+            }
+        }
+        if( tree.hasChild( "MOVIE_PATH" ) ) {
+            mDefaultMoviePath = fs::path( tree.getValueForKey<string>( "MOVIE_PATH" ) );
+            if( !fs::exists( mDefaultMoviePath ) ) {
+                mDefaultMoviePath = getVideoPath();
+            }
+        }
+        if( tree.hasChild( "RENDER_PATH" ) ) {
+            mDefaultRenderPath = fs::path( tree.getValueForKey<string>( "RENDER_PATH" ) );
+            if( !fs::exists( mDefaultRenderPath ) ) {
+                mDefaultRenderPath = getRendersPath();
+            }
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - SAVE & LOAD SESSIONS
+//------------------------------------------------------------------------------
+
+void FragmentApp::saveSession()
+{
+    auto rtrim = []( string input, string key ) {
+        string result = "";
+        size_t found = input.rfind( key );
+        if( found != string::npos ) {
+            result = input.substr( 0, found );
+        }
+        return result;
+    };
+    
+    auto prePath = mDefaultSaveLoadPath;
+    auto pth = getSaveFilePath( prePath );
+    if( !pth.empty() ) {
+        if( createDirectory( pth ) ) {
+            mDefaultSaveLoadPath = fs::path( rtrim( pth.native(), "/" ) );
+            save( pth );
+            save( getWorkingPath() );
+        }
+    }
+}
+
+void FragmentApp::loadSession()
+{
+    auto pth = getFolderPath( mDefaultSaveLoadPath );
+    if( !pth.empty() ) {
+        load( pth );
+        mDefaultSaveLoadPath = pth.parent_path();
     }
 }
 

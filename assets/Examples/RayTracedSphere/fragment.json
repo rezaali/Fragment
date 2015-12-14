@@ -1,0 +1,82 @@
+{
+   "ID" : -1,
+   "NAME" : "fragment",
+   "SUBVIEWS" : [
+      {
+         "ID" : 0,
+         "NAME" : "PX",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 1,
+         "NAME" : "PY",
+         "TYPE" : "Dialer",
+         "VALUE" : 45
+      },
+      {
+         "ID" : 2,
+         "NAME" : "SX",
+         "TYPE" : "Dialer",
+         "VALUE" : 500
+      },
+      {
+         "ID" : 3,
+         "NAME" : "SY",
+         "TYPE" : "Dialer",
+         "VALUE" : 500
+      },
+      {
+         "ID" : 4,
+         "NAME" : "BORDER",
+         "TYPE" : "Toggle",
+         "VALUE" : false
+      },
+      {
+         "ID" : 10,
+         "NAME" : "MX",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 11,
+         "NAME" : "MY",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 12,
+         "NAME" : "CX",
+         "TYPE" : "Dialer",
+         "VALUE" : 395
+      },
+      {
+         "ID" : 13,
+         "NAME" : "CY",
+         "TYPE" : "Dialer",
+         "VALUE" : 227
+      },
+      {
+         "ID" : 14,
+         "NAME" : "TX",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 15,
+         "NAME" : "TY",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 16,
+         "NAME" : "TS",
+         "TYPE" : "Dialer",
+         "VALUE" : 0
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 0,
+   "YPOS" : 569
+}

@@ -1,0 +1,28 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 0,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 1,
+         "ID" : 2,
+         "NAME" : "color",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

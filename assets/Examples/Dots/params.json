@@ -1,0 +1,45 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "light",
+         "TYPE" : "MultiSlider",
+         "light-X" : 0,
+         "light-Y" : 0,
+         "light-Z" : 1
+      },
+      {
+         "ID" : 3,
+         "NAME" : "rad",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 4,
+         "NAME" : "shinyness",
+         "TYPE" : "Slider",
+         "VALUE" : 6.9019608497619629
+      },
+      {
+         "ID" : 5,
+         "NAME" : "noiseScale",
+         "TYPE" : "Slider",
+         "VALUE" : 0.42156863212585449
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

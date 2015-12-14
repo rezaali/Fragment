@@ -31,16 +31,10 @@
          "NAME" : "PROGRESS",
          "TYPE" : "Slider",
          "VALUE" : 0
-      },
-      {
-         "ID" : 9,
-         "NAME" : "ANIMATION",
-         "TYPE" : "Slider",
-         "VALUE" : 0.72881358861923218
       }
    ],
    "TYPE" : "WindowCanvas",
    "VALID" : true,
-   "XPOS" : 530,
-   "YPOS" : 175
+   "XPOS" : 213,
+   "YPOS" : 569
 }
