@@ -580,7 +580,7 @@ WindowCanvasRef FragmentApp::setupTutorialsUI( WindowCanvasRef ui )
 
 WindowCanvasRef FragmentApp::setupConsoleUI( WindowCanvasRef ui )
 {
-    string status = mCompiledGlsl == true ? "SUCCESS" : "ERROR";
+    string status = mCompiledGlsl == true ? "SUCCESS V0.0.1" : "ERROR V0.0.1";
     mCompiledLabelRef = ui->addLabel( "STATUS: " + status, FontSize::SMALL );
     if( mCompiledGlsl ) {
         mCompiledLabelRef->setColorFill( ColorA( 0.0, 1.0, 0.0, 1.0 ) );

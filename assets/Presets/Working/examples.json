@@ -3,7 +3,6 @@
    "NAME" : "examples",
    "SUBVIEWS" : [
       {
-         "ACTIVE" : "ZebraSphere",
          "ID" : 1,
          "NAME" : "Examples",
          "SUBVIEWS" : [
@@ -65,7 +64,7 @@
                "ID" : 9,
                "NAME" : "ZebraSphere",
                "TYPE" : "Toggle",
-               "VALUE" : true
+               "VALUE" : false
             }
          ],
          "TYPE" : "Radio"

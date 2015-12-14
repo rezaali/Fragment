@@ -12,7 +12,7 @@
          "ID" : 1,
          "NAME" : "PY",
          "TYPE" : "Dialer",
-         "VALUE" : 0
+         "VALUE" : 45
       },
       {
          "ID" : 2,
@@ -48,13 +48,13 @@
          "ID" : 12,
          "NAME" : "CX",
          "TYPE" : "Dialer",
-         "VALUE" : 334
+         "VALUE" : 339
       },
       {
          "ID" : 13,
          "NAME" : "CY",
          "TYPE" : "Dialer",
-         "VALUE" : 306
+         "VALUE" : 269
       },
       {
          "ID" : 14,

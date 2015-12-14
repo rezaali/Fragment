@@ -19,7 +19,6 @@
 		07CC7DD61DB64024AAC3FEA6 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B809FD68E20746FCA24CF8FD /* Canvas.cpp */; };
 		0A26199001E847679C5FDEFE /* QuaternionOrderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F96DBF4197417790DFA437 /* QuaternionOrderer.cpp */; };
 		0A8E36266C274CF3B24A073B /* WindowCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5706A00FFCAD4B7B817049A2 /* WindowCanvas.cpp */; };
-		0C7931FC69D44EB29AE039D4 /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 724C4D4BAAEB4EC7B870F945 /* CinderApp.icns */; };
 		20E45AF7037C4BA795BC1BC0 /* XYPad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 71BB061C31944E04B9FA5272 /* XYPad.cpp */; };
 		25727D80D6514308AB05D10D /* ControlWithLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BAA1DC9619084F71992F6709 /* ControlWithLabel.cpp */; };
 		299F80E0B4B74416AC3E3E64 /* ColorPicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4344A684A20740EF86FD29F8 /* ColorPicker.cpp */; };
@@ -459,6 +458,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = CC7PU3PUHS;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Fragment" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -486,7 +490,6 @@
 			files = (
 				9E5BF2F01C11E1900087018D /* palettes.png in Resources */,
 				9E74FB831C080ACB00C5595D /* Fragment.icns in Resources */,
-				0C7931FC69D44EB29AE039D4 /* CinderApp.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +544,8 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -557,8 +562,9 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reza.Fragment;
 				PRODUCT_NAME = Fragment;
+				PROVISIONING_PROFILE = "";
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;
 			};
@@ -567,6 +573,8 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -584,8 +592,9 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reza.Fragment;
 				PRODUCT_NAME = Fragment;
+				PROVISIONING_PROFILE = "";
 				STRIP_INSTALLED_PRODUCT = YES;
 				SYMROOT = ./build;
 				WRAPPER_EXTENSION = app;

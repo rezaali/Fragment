@@ -6,7 +6,7 @@
          "ID" : 1,
          "NAME" : "OUTPUT IMAGE SCALE",
          "TYPE" : "Dialer",
-         "VALUE" : 4
+         "VALUE" : 10
       },
       {
          "ID" : 4,
