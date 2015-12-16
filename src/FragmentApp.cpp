@@ -388,11 +388,11 @@ void FragmentApp::keyDownOutput( KeyEvent event )
             case KeyEvent::KEY_c: { spawnUI( "console" ); } break;
             case KeyEvent::KEY_e: { spawnUI( "examples" ); } break;
             case KeyEvent::KEY_t: { spawnUI( "tutorials" ); } break;
-            case KeyEvent::KEY_s: { if( event.isShiftDown() ) { saveImageAs(); } else { saveSession(); } } break;
             case KeyEvent::KEY_m: { saveMovieAs(); } break;
             case KeyEvent::KEY_o: { loadSession(); } break;
             case KeyEvent::KEY_w: { arrangeUIWindows(); } break;
-            case KeyEvent::KEY_f: {
+            case KeyEvent::KEY_s: { if( event.isShiftDown() ) { saveImageAs(); } else { saveSession(); } } break;
+                       case KeyEvent::KEY_f: {
                 mOutputWindowRef->setFullScreen( !mOutputWindowRef->isFullScreen() );
             }
                 break;

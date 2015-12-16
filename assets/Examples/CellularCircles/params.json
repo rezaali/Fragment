@@ -1,0 +1,57 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "mult",
+         "TYPE" : "Slider",
+         "VALUE" : 2.7450981140136719
+      },
+      {
+         "ID" : 3,
+         "NAME" : "speed",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 4,
+         "NAME" : "stripes",
+         "TYPE" : "Slider",
+         "VALUE" : 8
+      },
+      {
+         "ID" : 5,
+         "NAME" : "palette",
+         "TYPE" : "Slider",
+         "VALUE" : 0.34803920984268188
+      },
+      {
+         "HVALUE" : 1,
+         "ID" : 6,
+         "LVALUE" : 0,
+         "NAME" : "paletteRange",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 7,
+         "NAME" : "offset",
+         "TYPE" : "XYPad",
+         "XVALUE" : 0.97058820724487305,
+         "YVALUE" : -0.66666662693023682
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

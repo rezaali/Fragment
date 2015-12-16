@@ -48,13 +48,13 @@
          "ID" : 12,
          "NAME" : "CX",
          "TYPE" : "Dialer",
-         "VALUE" : 323
+         "VALUE" : 310
       },
       {
          "ID" : 13,
          "NAME" : "CY",
          "TYPE" : "Dialer",
-         "VALUE" : 231
+         "VALUE" : 321
       },
       {
          "ID" : 14,
