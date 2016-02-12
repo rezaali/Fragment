@@ -26,6 +26,8 @@ To Do List:
  Add Key Bindings to Save on apple+s
  Add Key Bindinds to Render image on apple+r
  Add Key Bindings to all UIs
+ Export to WebGL!?!!?!
+ Integrate OSC
 */
 
 using namespace ci;
@@ -67,6 +69,7 @@ public:
     vec2 mMouse = vec2( 0.0 );
     vec2 mMousePrev = vec2( 0.0 );
     vec2 mMouseClick = vec2( 0.0 );
+    bool mOutputWindowFullscreen = false;
     ivec2 mOutputWindowOrigin = ivec2( 0 );
     ivec2 mOutputWindowSize = ivec2( 1920, 1080 );
     
@@ -392,10 +395,11 @@ void FragmentApp::keyDownOutput( KeyEvent event )
             case KeyEvent::KEY_o: { loadSession(); } break;
             case KeyEvent::KEY_w: { arrangeUIWindows(); } break;
             case KeyEvent::KEY_s: { if( event.isShiftDown() ) { saveImageAs(); } else { saveSession(); } } break;
-                       case KeyEvent::KEY_f: {
-                mOutputWindowRef->setFullScreen( !mOutputWindowRef->isFullScreen() );
+            case KeyEvent::KEY_f: {
+                mOutputWindowFullscreen = !mOutputWindowFullscreen;
+                mOutputWindowRef->setFullScreen( mOutputWindowFullscreen );
             }
-                break;
+            break;
         }
     }
 }
@@ -453,6 +457,9 @@ WindowCanvasRef FragmentApp::setupUI( WindowCanvasRef ui )
     ui->addDialeri( "SY", &mOutputWindowSize.y, 0, 10000, dfmt )->setCallback( szCb );
     ui->addToggle( "BORDER", false, Toggle::Format().label(false) )->setCallback( [ this ] ( bool value ) {
         mOutputWindowRef->setBorderless( value );        
+    } );
+    ui->addToggle( "FULLSCREEN", &mOutputWindowFullscreen, Toggle::Format().label( false ) )->setCallback( [ this ] ( bool value ) {
+        mOutputWindowRef->setFullScreen( mOutputWindowFullscreen );
     } );
     down( ui );
     
