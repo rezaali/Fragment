@@ -360,7 +360,7 @@ void FragmentApp::drawOutput()
     mGlslRef->uniform( "iGlobalTime", float( getElapsedSeconds() ) );
     mGlslRef->uniform( "iAnimationTime", mMovieExporterCurrentTime );
     mGlslRef->uniform( "iMouse", vec4( mMouse.x, size.y - mMouse.y, mMouseClick.x, size.y - mMouseClick.y ) );
-    mGlslRef->uniform( "iDate", vec4( date.year(), date.month(), date.day_number(), t.time_of_day().seconds() ) );
+    mGlslRef->uniform( "iDate", vec4( date.year(), date.month(), date.day(), t.time_of_day().total_seconds() ) );    
     mGlslRef->uniform( "iPalettes", 0 );
     mPaletteTexRef->bind( 0 );
     mGlsParams.applyUniforms( mGlslRef );
@@ -1286,4 +1286,4 @@ void FragmentApp::loadSession()
     }
 }
 
-CINDER_APP( FragmentApp, RendererGl( RendererGl::Options().msaa( 16 ) ), FragmentApp::prepareSettings )
+CINDER_APP( FragmentApp, RendererGl( RendererGl::Options().msaa( 0 ) ), FragmentApp::prepareSettings )
