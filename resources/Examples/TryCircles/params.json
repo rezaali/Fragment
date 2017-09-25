@@ -1,0 +1,86 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "spaceSize",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 3,
+         "NAME" : "aa",
+         "TYPE" : "Slider",
+         "VALUE" : 296.86764526367188
+      },
+      {
+         "HVALUE" : 1,
+         "ID" : 4,
+         "LVALUE" : 0,
+         "NAME" : "smoothness",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 5,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.01709313690662384
+      },
+      {
+         "ID" : 6,
+         "NAME" : "baseLength",
+         "TYPE" : "Slider",
+         "VALUE" : 0.14705882966518402
+      },
+      {
+         "ID" : 7,
+         "NAME" : "centerOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 8,
+         "NAME" : "scaleFactor",
+         "TYPE" : "Slider",
+         "VALUE" : 0.35294118523597717
+      },
+      {
+         "ID" : 9,
+         "NAME" : "angleOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 0.034313727170228958
+      },
+      {
+         "ID" : 10,
+         "NAME" : "circleSize",
+         "TYPE" : "Slider",
+         "VALUE" : 0.46078431606292725
+      },
+      {
+         "ID" : 11,
+         "NAME" : "alpha",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 12,
+         "NAME" : "loops",
+         "TYPE" : "Slider",
+         "VALUE" : 30
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

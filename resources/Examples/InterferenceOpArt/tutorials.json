@@ -1,0 +1,65 @@
+{
+   "ID" : -1,
+   "NAME" : "tutorials",
+   "SUBVIEWS" : [
+      {
+         "ID" : 1,
+         "NAME" : "Tutorials",
+         "SUBVIEWS" : [
+            {
+               "ID" : 0,
+               "NAME" : "1_Button",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 1,
+               "NAME" : "2_Toggle",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 2,
+               "NAME" : "3_Range",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 3,
+               "NAME" : "3_Slider",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 4,
+               "NAME" : "4_Pad",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 5,
+               "NAME" : "5_Multislider",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 6,
+               "NAME" : "6_ColorPicker",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 7,
+               "NAME" : "7_Dialers",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            }
+         ],
+         "TYPE" : "Radio"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 0,
+   "YPOS" : 691
+}

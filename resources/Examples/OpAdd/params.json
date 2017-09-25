@@ -1,0 +1,32 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "freq",
+         "TYPE" : "Slider",
+         "VALUE" : 75.980392456054688
+      },
+      {
+         "HVALUE" : 0.64215683937072754,
+         "ID" : 3,
+         "LVALUE" : 0.3333333432674408,
+         "NAME" : "aa",
+         "TYPE" : "Range"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

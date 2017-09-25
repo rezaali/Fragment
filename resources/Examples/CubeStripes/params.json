@@ -1,0 +1,39 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "boxSize",
+         "TYPE" : "Slider",
+         "VALUE" : 0.86764705181121826
+      },
+      {
+         "HVALUE" : 0.68627452850341797,
+         "ID" : 3,
+         "LVALUE" : 0.63235294818878174,
+         "NAME" : "ssoRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 1,
+         "ID" : 4,
+         "LVALUE" : 0.89705884456634521,
+         "NAME" : "lightRange",
+         "TYPE" : "Range"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

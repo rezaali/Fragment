@@ -1,0 +1,74 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "spaceSize",
+         "TYPE" : "Slider",
+         "VALUE" : 50
+      },
+      {
+         "ID" : 3,
+         "NAME" : "aa",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 4,
+         "NAME" : "baseRadius",
+         "TYPE" : "Slider",
+         "VALUE" : 4.5098037719726562
+      },
+      {
+         "ID" : 5,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.12745098769664764
+      },
+      {
+         "ID" : 6,
+         "NAME" : "spacing",
+         "TYPE" : "Slider",
+         "VALUE" : 0.17156863212585449
+      },
+      {
+         "ID" : 7,
+         "NAME" : "distortion",
+         "TYPE" : "Slider",
+         "VALUE" : 0.28431373834609985
+      },
+      {
+         "ID" : 8,
+         "NAME" : "noiseScale",
+         "TYPE" : "Slider",
+         "VALUE" : 1
+      },
+      {
+         "ID" : 9,
+         "NAME" : "noiseOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 0
+      },
+      {
+         "HVALUE" : 1,
+         "ID" : 10,
+         "LVALUE" : 0,
+         "NAME" : "smoothness",
+         "TYPE" : "Range"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

@@ -1,0 +1,69 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "spaceSize",
+         "TYPE" : "Slider",
+         "VALUE" : 5.4117646217346191
+      },
+      {
+         "ID" : 3,
+         "NAME" : "aa",
+         "TYPE" : "Slider",
+         "VALUE" : 48.313728332519531
+      },
+      {
+         "HVALUE" : 0.87254899740219116,
+         "ID" : 4,
+         "LVALUE" : 0,
+         "NAME" : "smoothness",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 1.5318624973297119,
+         "ID" : 5,
+         "LVALUE" : -5.1789216995239258,
+         "NAME" : "thetaRange",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 6,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.52700978517532349
+      },
+      {
+         "ID" : 7,
+         "NAME" : "baseRadius",
+         "TYPE" : "Slider",
+         "VALUE" : 1.813725471496582
+      },
+      {
+         "ID" : 8,
+         "NAME" : "offset",
+         "TYPE" : "Slider",
+         "VALUE" : -0.81372547149658203
+      },
+      {
+         "ID" : 9,
+         "NAME" : "decay",
+         "TYPE" : "Slider",
+         "VALUE" : 0.48529410362243652
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

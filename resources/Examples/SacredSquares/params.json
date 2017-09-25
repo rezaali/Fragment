@@ -1,0 +1,61 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "spaceSize",
+         "TYPE" : "Slider",
+         "VALUE" : 10
+      },
+      {
+         "ID" : 3,
+         "NAME" : "squareSize",
+         "TYPE" : "Slider",
+         "VALUE" : 10
+      },
+      {
+         "ID" : 4,
+         "NAME" : "numSquares",
+         "TYPE" : "Slider",
+         "VALUE" : 125
+      },
+      {
+         "ID" : 5,
+         "NAME" : "theta",
+         "TYPE" : "Slider",
+         "VALUE" : 0.025490198284387589
+      },
+      {
+         "ID" : 6,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.07352941483259201
+      },
+      {
+         "ID" : 7,
+         "NAME" : "alpha",
+         "TYPE" : "Slider",
+         "VALUE" : 0.22352941334247589
+      },
+      {
+         "ID" : 8,
+         "NAME" : "scale",
+         "TYPE" : "Slider",
+         "VALUE" : 0.98029410839080811
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

@@ -1,0 +1,88 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "spaceSize",
+         "TYPE" : "Slider",
+         "VALUE" : 3.3823530673980713
+      },
+      {
+         "ID" : 3,
+         "NAME" : "aa",
+         "TYPE" : "Slider",
+         "VALUE" : 45.823532104492188
+      },
+      {
+         "ID" : 4,
+         "NAME" : "spacing",
+         "TYPE" : "Slider",
+         "VALUE" : 0.24264705181121826
+      },
+      {
+         "ID" : 5,
+         "NAME" : "extrude",
+         "TYPE" : "Slider",
+         "VALUE" : 0.5
+      },
+      {
+         "HVALUE" : 0.30882352590560913,
+         "ID" : 6,
+         "LVALUE" : 0.12745098769664764,
+         "NAME" : "smoothness",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 7,
+         "NAME" : "offset",
+         "TYPE" : "XYPad",
+         "XVALUE" : 0.32352936267852783,
+         "YVALUE" : -0.25490200519561768
+      },
+      {
+         "ID" : 8,
+         "NAME" : "circleCenter",
+         "TYPE" : "XYPad",
+         "XVALUE" : 1.0784313678741455,
+         "YVALUE" : 0.84313726425170898
+      },
+      {
+         "ID" : 9,
+         "NAME" : "alpha",
+         "TYPE" : "Slider",
+         "VALUE" : 0.81862747669219971
+      },
+      {
+         "ID" : 10,
+         "NAME" : "circleLineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.073088236153125763
+      },
+      {
+         "ID" : 11,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.15073530375957489
+      },
+      {
+         "ID" : 12,
+         "NAME" : "baseRadius",
+         "TYPE" : "Slider",
+         "VALUE" : 1.4705883264541626
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

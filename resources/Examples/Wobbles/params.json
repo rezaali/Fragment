@@ -1,0 +1,67 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.80804944038391113,
+         "GREEN" : 0.80804944038391113,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0.80804944038391113,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "aa",
+         "TYPE" : "Slider",
+         "VALUE" : 1.813725471496582
+      },
+      {
+         "ID" : 3,
+         "NAME" : "lineWidth",
+         "TYPE" : "Slider",
+         "VALUE" : 0.0068627456203103065
+      },
+      {
+         "ID" : 4,
+         "NAME" : "radius",
+         "TYPE" : "Slider",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 5,
+         "NAME" : "extrude",
+         "TYPE" : "Slider",
+         "VALUE" : 0.19607843458652496
+      },
+      {
+         "ID" : 6,
+         "NAME" : "spacing",
+         "TYPE" : "Slider",
+         "VALUE" : 0.030882352963089943
+      },
+      {
+         "ID" : 7,
+         "NAME" : "thetaOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 0.069117650389671326
+      },
+      {
+         "ID" : 8,
+         "NAME" : "offsetSpeed",
+         "TYPE" : "Slider",
+         "VALUE" : 0.019607843831181526
+      },
+      {
+         "ID" : 9,
+         "NAME" : "loops",
+         "TYPE" : "Slider",
+         "VALUE" : 27
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

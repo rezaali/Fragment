@@ -1,0 +1,138 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0,
+         "GREEN" : 0,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 0,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "boxSize",
+         "TYPE" : "MultiSlider",
+         "boxSize-X" : 1.4117647409439087,
+         "boxSize-Y" : 0.97058820724487305,
+         "boxSize-Z" : 1.5784313678741455
+      },
+      {
+         "ID" : 3,
+         "NAME" : "rot",
+         "TYPE" : "MultiSlider",
+         "rot-X" : 0.56862747669219971,
+         "rot-Y" : 0.25980392098426819,
+         "rot-Z" : 0.21568627655506134
+      },
+      {
+         "ID" : 4,
+         "NAME" : "lightDirection",
+         "TYPE" : "MultiSlider",
+         "lightDirection-X" : 0,
+         "lightDirection-Y" : 1,
+         "lightDirection-Z" : 1
+      },
+      {
+         "ID" : 5,
+         "NAME" : "rayOrigin",
+         "TYPE" : "MultiSlider",
+         "rayOrigin-X" : 0,
+         "rayOrigin-Y" : 10.098038673400879,
+         "rayOrigin-Z" : 17.352941513061523
+      },
+      {
+         "ID" : 6,
+         "NAME" : "camAngle",
+         "TYPE" : "Slider",
+         "VALUE" : 2.470588207244873
+      },
+      {
+         "ID" : 7,
+         "NAME" : "camDistance",
+         "TYPE" : "Slider",
+         "VALUE" : 5.2450981140136719
+      },
+      {
+         "ID" : 8,
+         "NAME" : "cuttingSize",
+         "TYPE" : "Slider",
+         "VALUE" : 2.5147058963775635
+      },
+      {
+         "ID" : 9,
+         "NAME" : "cuttingDistance",
+         "TYPE" : "Slider",
+         "VALUE" : 3.779411792755127
+      },
+      {
+         "ID" : 10,
+         "NAME" : "totalCuts",
+         "TYPE" : "Slider",
+         "VALUE" : 10
+      },
+      {
+         "ID" : 11,
+         "NAME" : "heightOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 2.3382353782653809
+      },
+      {
+         "HVALUE" : 0.59803920984268188,
+         "ID" : 12,
+         "LVALUE" : 0.1715686023235321,
+         "NAME" : "paletteObjectRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.40686273574829102,
+         "ID" : 13,
+         "LVALUE" : 0.1666666716337204,
+         "NAME" : "paletteFloorRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 2.6666665077209473,
+         "ID" : 14,
+         "LVALUE" : -0.86274504661560059,
+         "NAME" : "shadowRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.70098036527633667,
+         "ID" : 15,
+         "LVALUE" : 0.51960784196853638,
+         "NAME" : "ssoObjectRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.84313726425170898,
+         "ID" : 16,
+         "LVALUE" : 0.47058823704719543,
+         "NAME" : "ssoRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.90686273574829102,
+         "ID" : 17,
+         "LVALUE" : 0.51470589637756348,
+         "NAME" : "lightRange",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 18,
+         "NAME" : "UNIFORMS",
+         "TYPE" : "MultiSlider",
+         "palette" : 0.64705884456634521,
+         "randOffset" : 0.83823531866073608,
+         "rimLightPower" : 0.098039217293262482,
+         "specular" : 1
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}

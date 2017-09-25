@@ -1,0 +1,94 @@
+{
+   "ID" : -1,
+   "NAME" : "fragment",
+   "SUBVIEWS" : [
+      {
+         "ID" : 0,
+         "NAME" : "PX",
+         "TYPE" : "Dialeri",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 1,
+         "NAME" : "PY",
+         "TYPE" : "Dialeri",
+         "VALUE" : 45
+      },
+      {
+         "ID" : 2,
+         "NAME" : "SX",
+         "TYPE" : "Dialeri",
+         "VALUE" : 500
+      },
+      {
+         "ID" : 3,
+         "NAME" : "SY",
+         "TYPE" : "Dialeri",
+         "VALUE" : 500
+      },
+      {
+         "ID" : 4,
+         "NAME" : "BORDER",
+         "TYPE" : "Toggle",
+         "VALUE" : false
+      },
+      {
+         "ID" : 9,
+         "NAME" : "OSC PORT",
+         "TYPE" : "Dialeri",
+         "VALUE" : 10001
+      },
+      {
+         "ID" : 15,
+         "NAME" : "MX",
+         "TYPE" : "Dialerf",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 16,
+         "NAME" : "MY",
+         "TYPE" : "Dialerf",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 17,
+         "NAME" : "CX",
+         "TYPE" : "Dialerf",
+         "VALUE" : 410
+      },
+      {
+         "ID" : 18,
+         "NAME" : "CY",
+         "TYPE" : "Dialerf",
+         "VALUE" : 369
+      },
+      {
+         "ID" : 19,
+         "NAME" : "TX",
+         "TYPE" : "Dialerf",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 20,
+         "NAME" : "TY",
+         "TYPE" : "Dialerf",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 21,
+         "NAME" : "TS",
+         "TYPE" : "Dialerf",
+         "VALUE" : 0
+      },
+      {
+         "ID" : 23,
+         "NAME" : "FOV",
+         "TYPE" : "Sliderf",
+         "VALUE" : 60
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 0,
+   "YPOS" : 569
+}

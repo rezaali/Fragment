@@ -1,0 +1,118 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 1,
+         "GREEN" : 1,
+         "ID" : 1,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ID" : 2,
+         "NAME" : "sphereSize",
+         "TYPE" : "Slider",
+         "VALUE" : 2.2156863212585449
+      },
+      {
+         "ID" : 3,
+         "NAME" : "rot",
+         "TYPE" : "MultiSlider",
+         "rot-X" : -0.2549019455909729,
+         "rot-Y" : 0.10784316062927246,
+         "rot-Z" : 0.019607901573181152
+      },
+      {
+         "ID" : 4,
+         "NAME" : "lightDirection",
+         "TYPE" : "MultiSlider",
+         "lightDirection-X" : -0.20588237047195435,
+         "lightDirection-Y" : -1,
+         "lightDirection-Z" : -1
+      },
+      {
+         "ID" : 5,
+         "NAME" : "rayOrigin",
+         "TYPE" : "MultiSlider",
+         "rayOrigin-X" : 0,
+         "rayOrigin-Y" : 4.6078433990478516,
+         "rayOrigin-Z" : 20
+      },
+      {
+         "ID" : 6,
+         "NAME" : "camAngle",
+         "TYPE" : "Slider",
+         "VALUE" : 0.64705884456634521
+      },
+      {
+         "ID" : 7,
+         "NAME" : "camDistance",
+         "TYPE" : "Slider",
+         "VALUE" : 8.186274528503418
+      },
+      {
+         "ID" : 8,
+         "NAME" : "heightOffset",
+         "TYPE" : "Slider",
+         "VALUE" : 3
+      },
+      {
+         "HVALUE" : 0.81372565031051636,
+         "ID" : 9,
+         "LVALUE" : 0.42156863212585449,
+         "NAME" : "paletteObjectRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 1,
+         "ID" : 10,
+         "LVALUE" : 0,
+         "NAME" : "paletteFloorRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 4,
+         "ID" : 11,
+         "LVALUE" : -1.9215686321258545,
+         "NAME" : "shadowRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.76470589637756348,
+         "ID" : 12,
+         "LVALUE" : 0.46078431606292725,
+         "NAME" : "ssoObjectRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.88235294818878174,
+         "ID" : 13,
+         "LVALUE" : 0.46078431606292725,
+         "NAME" : "ssoRange",
+         "TYPE" : "Range"
+      },
+      {
+         "HVALUE" : 0.90686273574829102,
+         "ID" : 14,
+         "LVALUE" : 0.45588234066963196,
+         "NAME" : "lightRange",
+         "TYPE" : "Range"
+      },
+      {
+         "ID" : 15,
+         "NAME" : "UNIFORMS",
+         "TYPE" : "MultiSlider",
+         "palette" : 0.25,
+         "randOffset" : 0.83823531866073608,
+         "rimLightPower" : 0.11274509876966476,
+         "specular" : 3.2843136787414551
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 89
+}
