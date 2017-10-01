@@ -160,7 +160,7 @@ class Fragment : public App {
     float mTexcoordScale = 0.0;
 
     //SAVING & LOADING
-    fs::path mDefaultEditorPath; 
+    fs::path mDefaultEditorPath;
     fs::path mDefaultSaveLoadPath;
     fs::path mDefaultMoviePath;
     fs::path mDefaultRenderPath;
@@ -248,8 +248,8 @@ void Fragment::setup()
 
     CI_LOG_V( "LOADING APP & UI SETTINGS" );
     loadSettings( getAppSupportWorkingSessionPath() );
-//    arrangeUIWindows();
-//    arrangeUIWindows();
+    //    arrangeUIWindows();
+    //    arrangeUIWindows();
 }
 
 //------------------------------------------------------------------------------
@@ -445,7 +445,7 @@ void Fragment::drawOutput()
             mGlslProgRef->uniform( "iCameraEyePoint", mCameraRef->getCameraPersp().getEyePoint() );
             mGlslProgRef->uniform( "iCameraFov", toRadians( mCameraRef->getCameraPersp().getFov() ) );
 
-            mPaletteTexRef->bind( 0 );                    
+            mPaletteTexRef->bind( 0 );
             mGlslParamsRef->applyUniforms( mGlslProgRef );
         }
         _drawOutput();
@@ -565,7 +565,7 @@ UIPanelRef Fragment::setupAppUI( UIPanelRef ui )
     ui->addDialeri( "PY", &mOutputWindowOrigin.y, 0, getDisplay()->getHeight(), dfmt )->setCallback( mvCb );
     ui->addDialeri( "SX", &mOutputWindowSize.x, 0, 10000, dfmt )->setCallback( szCb );
     ui->addDialeri( "SY", &mOutputWindowSize.y, 0, 10000, dfmt )->setCallback( szCb );
-    ui->addToggle( "BORDER", false, Toggle::Format().label(false) )->setCallback( [this]( bool value ) {
+    ui->addToggle( "BORDER", false, Toggle::Format().label( false ) )->setCallback( [this]( bool value ) {
         mOutputWindowRef->setBorderless( value );
     } );
     ui->down();
@@ -1228,12 +1228,12 @@ void Fragment::openEditor()
 {
     auto shaderPath = getAppSupportWorkingSessionShadersPath();
     string editorPath = mDefaultEditorPath.string();
-    vector<string> parts = split(editorPath, ' ');
+    vector<string> parts = split( editorPath, ' ' );
     editorPath = "";
     for( auto &it : parts ) {
         editorPath += it + "\\ ";
     }
-    editorPath = editorPath.substr(0, editorPath.size() - 2);
+    editorPath = editorPath.substr( 0, editorPath.size() - 2 );
     string cmd = "cd " + shaderPath.string() + " && open -a " + editorPath + " .";
     system( cmd.c_str() );
 }
