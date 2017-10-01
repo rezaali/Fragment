@@ -1,0 +1,34 @@
+{
+   "ID" : -1,
+   "NAME" : "exporter",
+   "SUBVIEWS" : [
+      {
+         "ID" : 1,
+         "NAME" : "OUTPUT IMAGE SCALE",
+         "TYPE" : "Dialeri",
+         "VALUE" : 2
+      },
+      {
+         "ID" : 4,
+         "NAME" : "MOV",
+         "TYPE" : "Toggle",
+         "VALUE" : true
+      },
+      {
+         "ID" : 5,
+         "NAME" : "PNG",
+         "TYPE" : "Toggle",
+         "VALUE" : false
+      },
+      {
+         "ID" : 6,
+         "NAME" : "FRAMES",
+         "TYPE" : "Dialeri",
+         "VALUE" : 360
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 213,
+   "YPOS" : 569
+}

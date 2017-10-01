@@ -1,0 +1,37 @@
+{
+   "ID" : -1,
+   "NAME" : "params",
+   "SUBVIEWS" : [
+      {
+         "ALPHA" : 1,
+         "BLUE" : 1,
+         "GREEN" : 1,
+         "ID" : 8,
+         "NAME" : "BACKGROUND COLOR",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.47999900000000001,
+         "GREEN" : 0,
+         "ID" : 9,
+         "NAME" : "core_color",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      },
+      {
+         "ALPHA" : 1,
+         "BLUE" : 0.29999900000000002,
+         "GREEN" : 0,
+         "ID" : 10,
+         "NAME" : "tip_color",
+         "RED" : 1,
+         "TYPE" : "ColorPicker"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 501,
+   "YPOS" : 101
+}

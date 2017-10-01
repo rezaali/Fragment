@@ -1,0 +1,239 @@
+{
+   "ID" : -1,
+   "NAME" : "examples",
+   "SUBVIEWS" : [
+      {
+         "ID" : 1,
+         "NAME" : "Examples",
+         "SUBVIEWS" : [
+            {
+               "ID" : 0,
+               "NAME" : "10Print",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 1,
+               "NAME" : "Aging",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 2,
+               "NAME" : "CellularCircles",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 3,
+               "NAME" : "CellularSpaceFruit",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 4,
+               "NAME" : "Checkers",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 5,
+               "NAME" : "Crossroads",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 6,
+               "NAME" : "Crystal",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 7,
+               "NAME" : "CrystalWebgl",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 8,
+               "NAME" : "CubeStripes",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 9,
+               "NAME" : "Curl",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 10,
+               "NAME" : "Dots",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 11,
+               "NAME" : "Flow",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 12,
+               "NAME" : "Fly",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 13,
+               "NAME" : "Fragment_Icon",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 14,
+               "NAME" : "InterferenceOpArt",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 15,
+               "NAME" : "Joanie",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 16,
+               "NAME" : "Jonobr1",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 17,
+               "NAME" : "LavaLamp",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 18,
+               "NAME" : "Metaballs",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 19,
+               "NAME" : "OpAdd",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 20,
+               "NAME" : "OutlineSquares",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 21,
+               "NAME" : "QRCode",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 22,
+               "NAME" : "Quasicrystals",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 23,
+               "NAME" : "RayMarching",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 24,
+               "NAME" : "RayTracedSphere",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 25,
+               "NAME" : "RayTracedSphereColor",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 26,
+               "NAME" : "SacredGeometry",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 27,
+               "NAME" : "SacredSquares",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 28,
+               "NAME" : "SDFAlien",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 29,
+               "NAME" : "SquareGradient",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 30,
+               "NAME" : "TryCircles",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 31,
+               "NAME" : "Wobbles",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 32,
+               "NAME" : "Ycam",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 33,
+               "NAME" : "YouMe",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 34,
+               "NAME" : "YouMeOpArt",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 35,
+               "NAME" : "Zebra",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            },
+            {
+               "ID" : 36,
+               "NAME" : "ZebraSphere",
+               "TYPE" : "Toggle",
+               "VALUE" : false
+            }
+         ],
+         "TYPE" : "Radio"
+      }
+   ],
+   "TYPE" : "WindowCanvas",
+   "VALID" : true,
+   "XPOS" : 213,
+   "YPOS" : 672
+}
