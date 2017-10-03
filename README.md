@@ -63,4 +63,24 @@ open Fragment.xcodeproj/
 In Xcode, go to the Product Menu and then Run or press Apple + R
 
 
+### Using Fragment:
+
+1. Arrange Windows (Apple + w)
+2. Set your code editor (Click SET EDITOR button) & navigate to your favorite text editor app
+3. Open the editor (Click OPEN EDITOR button or Apple + Shift + E). This will open the folder containing the code you should edit (shader.frag)
+4. Edit the code and save, Fragment will recompile the shaders and show you hottness.
+5. Save your live code session by clicking SAVE AS.
+6. Load a live code session by clicking LOAD.
+7. Try rendering a high res print (EXPORTER > SAVE IMAGE AS)
+8. Try rendering a movie (EXPORTER > RENDER): Select MOVIE Option, unselect PNG and click RENDER
+9. Change the total number of frames for your movie (this effects the iAnimationTime, which goes from 0 -> 1). The number dialer for this is next to EXPORTER > PNG.
+10. Try rendering a sequence of pngs (EXPORTER > RENDER) Select PNG Option, unselect MOVIE and click RENDER.
+
+### Improving Fragment:
+
+1. Make this readme better and submit a pull request!
+2. Point out things I'm doing wrong or could be better.
+3. Submit an example.
+4. Refactor something to make it easier to understand.
+5. Share Fragment with your friends.
 
