@@ -208,6 +208,7 @@ void Fragment::prepareSettings( App::Settings *settings )
 
 void Fragment::setup()
 {
+    cout << getAppSupportPath() << endl;
     CI_LOG_V( "SETUP ASSETS DIRECTORIES" );
     createAssetDirectories();
     CI_LOG_V( "SETUP DEFAULT DIRECTORIES" );
@@ -248,8 +249,8 @@ void Fragment::setup()
 
     CI_LOG_V( "LOADING APP & UI SETTINGS" );
     loadSettings( getAppSupportWorkingSessionPath() );
-    //    arrangeUIWindows();
-    //    arrangeUIWindows();
+    arrangeUIWindows();
+    arrangeUIWindows();
 }
 
 //------------------------------------------------------------------------------
