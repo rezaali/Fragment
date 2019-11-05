@@ -50,7 +50,7 @@ git clone git@github.com:rezaali/Watchdog.git Watchdog
 
 #### 4. Build Cinder
 ```
-cd ../proj/xcode/ && ./fullbuild.sh
+cd ../../proj/xcode/ && ./fullbuild.sh
 ```
 
 #### 5. Open Fragment Xcode project
